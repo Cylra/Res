@@ -1,0 +1,47 @@
+2017年9月19日凌晨1-6点
+srs_ipv6 v1.0
+--------------------------------------
+git clone https://github.com/dreibh/srs.git
+cd srs
+git remote add upstream https://github.com/wenjiegit/srs
+git fetch --all
+git checkout ipv6
+
+Note:
+"git checkout ipv6" will give you the IPv6 branch with my changes. All other branches are unmodified, i.e. without changing to the "ipv6" branch, you will not see the updates.
+Build and run as usual. You just have to use IPv6 addresses, of course. IPv4 works as well.
+
+--------------------------------------
+2017年9月20日凌晨5点
+srs_ipv6 v2.0
+--------------------------------------
+I just noticed that the repository wenjie/srs is actually a fork of the upstream repository ossrs/srs. The development is going on in this repository (see https://github.com/ossrs/srs). 
+So, I created another branch "ossrs2.0-ipv6" which is based on this upstream project's sources instead. To change to this branch:
+
+git fetch --all
+git checkout ossrs2.0-ipv6
+cd trunk
+./configure
+make
+
+(The upstream repository ossrs/srs receives all updates, while the fork wenjie/srs has not been updated for some time. This may be relevant if you discover bugs.)
+
+--------------------------------------
+2017年9月22日凌晨4:30
+srs_ipv6 v3.0
+--------------------------------------
+I had a further look into the SRS sources. 
+Since there is a release 3.0 now, I adapted the IPv6 code for release 3.0. 
+It is located in the new branch "ossrs3.0-ipv6". 
+I also found some small issues in the release 2.0 IPv6 branch and fixed them as well.
+
+To update:
+git fetch --all
+git checkout ossrs3.0-ipv6
+cd trunk
+./configure
+make
+
+A wrote a small script to identify socket API function calls: https://raw.githubusercontent.com/NEAT-project/neat/dreibh/neat-socketapi/socketapi/find-socket-functions
+"./find-socket-functions ~/src/srs/trunk/src/" find 67 places in the SRS sources.
+Adapting it to NEAT should not be very difficult.
