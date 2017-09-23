@@ -45,3 +45,16 @@ make
 A wrote a small script to identify socket API function calls: https://raw.githubusercontent.com/NEAT-project/neat/dreibh/neat-socketapi/socketapi/find-socket-functions
 "./find-socket-functions ~/src/srs/trunk/src/" find 67 places in the SRS sources.
 Adapting it to NEAT should not be very difficult.
+
+--------------------------------------
+2017年9月23日凌晨3:55
+srs_ipv6 v3.0
+--------------------------------------
+I created the branch "ossrs3.0-neat" (see also https://github.com/dreibh/srs/tree/ossrs3.0-neat).
+I made this branch (based on oss3.0-ipv6) NEAT-enabled, 
+with a static configuration of the NEAT properties (TCP, MPTCP). It compiles and starts SRS ...
+but there is a problem: research/st/ contains a library for event handling. 
+It is based on epoll, which is a more efficient replacement for poll() or select(). 
+I implemented nsa_poll() and nsa_select() functions, but epoll support is missing. It will take a couple of hours to implement and test NEAT epoll functions.
+So, focus on the parts 1 to 3 of the demo, i.e. IPv6, MPTCP multi-homing and multi-path transport, first. This should already work with the IPv6 branch.
+Note that you need the latest NEAT version for the SRS-NEAT sources to compile.
