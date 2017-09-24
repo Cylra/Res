@@ -48,7 +48,7 @@ Adapting it to NEAT should not be very difficult.
 
 --------------------------------------
 2017年9月23日凌晨3:55
-srs_ipv6 v3.0
+srs_ipv6 v3.0-neat
 --------------------------------------
 I created the branch "ossrs3.0-neat" (see also https://github.com/dreibh/srs/tree/ossrs3.0-neat).
 I made this branch (based on oss3.0-ipv6) NEAT-enabled, 
@@ -58,3 +58,12 @@ It is based on epoll, which is a more efficient replacement for poll() or select
 I implemented nsa_poll() and nsa_select() functions, but epoll support is missing. It will take a couple of hours to implement and test NEAT epoll functions.
 So, focus on the parts 1 to 3 of the demo, i.e. IPv6, MPTCP multi-homing and multi-path transport, first. This should already work with the IPv6 branch.
 Note that you need the latest NEAT version for the SRS-NEAT sources to compile.
+
+--------------------------------------
+2017年9月23日凌晨1:15
+srs_ipv6 v3.0-neat package
+--------------------------------------
+I have to package the new NEAT version. So, it currently compiles only with NEAT built from sources.
+I will have a look at the packaging later.
+The new NEAT packages should be in the repository now.
+However, although you can build SRS, it will not work until epoll support is added.
