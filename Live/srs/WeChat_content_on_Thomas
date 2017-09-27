@@ -60,10 +60,91 @@ So, focus on the parts 1 to 3 of the demo, i.e. IPv6, MPTCP multi-homing and mul
 Note that you need the latest NEAT version for the SRS-NEAT sources to compile.
 
 --------------------------------------
-2017年9月23日凌晨1:15
+2017年9月24日凌晨1:15
 srs_ipv6 v3.0-neat package
 --------------------------------------
 I have to package the new NEAT version. So, it currently compiles only with NEAT built from sources.
 I will have a look at the packaging later.
 The new NEAT packages should be in the repository now.
 However, although you can build SRS, it will not work until epoll support is added.
+
+--------------------------------------
+2017年9月25日晚22:52
+srs_ipv6 v3.0 server端只有1个出去的流量
+--------------------------------------
+If multi-path transport does not work:
+* Check whether MPTCP is in the kernel.
+* Check whether "fullmesh" path manager is configured.
+* Check routing rules.
+You need to configure routing rules on your machines, if you are not using NorNet Core.
+See https://simula.no/file/linuxcon2016-presentationpdf/download for examples on routing rules.
+Verify your routing (with ping, traceroute and Wireshark).
+
+Check routing rules and tables with:
+* sudo ip rule show
+* sudo ip route show table <name>
+Check with "ping -I source destination" and "traceroute -s source destination".
+(IPv6: ping6 and traceroute6)
+If something is still wrong, I need detailed information:
+* What is going wrong?
+* What is your configuration?
+
+和周老师谈话
+Did they apply the routing rules?
+They need one routing table per ISP. 
+The routing rule selects a routing table, according to the source IP address.
+About routing rules:
+See https://simula.no/file/linuxcon2016-presentationpdf/download for examples.
+
+--------------------------------------
+2017年9月26日下午14:21
+srs_ipv6 v3.0 server端只有1个出去的流量
+中午符老师说验证下netperfmeter两张网卡是否有
+数据,晚上重装了推送端的系统和重新编译了MPTCP内核
+目前除了服务器,一切正常
+--------------------------------------
+Check the setup with NetPerfMeter and a saturated flow first. 
+Run Wireshark to see whether the subflows on all interfaces are set up correctly.
+Also check the buffer size settings! If there is not enough buffer space, MPTCP may be unable to use all subflows. 
+SRS probably works with the default settings of the sysctls.
+Also, SRS transmits unsaturated flows, since video does not use as much bandwidth as it is available. 
+Then, a subset of the possible subflows may be already sufficient for transmitting all video data in full quality.
+I suggest to also upgrade the kernel. You can use my PPA packages for Ubuntu 16.04. 
+This ensures that you have the recent bug fixes included. 
+Your kernel seems to be somewhat out of date.
+
+This is the script I wrote for initialising the NorNet Core nodes:
+https://github.com/dreibh/nornet-nn/blob/master/src/nornet-research-node-initializer
+It also loads CC modules, so the CCs are available for configuration by sysctl and socket API calls. 
+Most important are the sysctl settings for the buffer sizes.
+I suggest to use this script also on your system. 
+Then, you will have the same MPTCP configuration as the NorNet Core nodes.
+You can e.g. also call it from /etc/rc.local (which is run when the system boots). 
+Then, you have the right settings automatically after booting your machine.
+To use my kernel repository:
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys DF605BB0760F2D65
+sudo apt-add-repository -s https://packages.nntb.no/nornet-kernel/ubuntu/
+sudo apt-get update
+
+Then, you can see the possible MPTCP kernels:
+apt-cache search mptcp
+You need at least the chosen kernel's image and header package. Or, install all:
+sudo apt-get install linux-*<version>-mptcp*
+After installation, check with "sudo update-grub" that the new kernel appears in the boot loader. 
+Reboot and select the new kernel in the boot menu.
+Warning: When working with different kernels, make sure that you always have at least one working kernel installed. 
+Be particularly careful when uninstalling kernels. 
+If you uninstall all working kernels, you will be unable to boot your system.
+You can easily try new kernels in e.g. VirtualBox VMs. Then, you can make a snapshot before installing a new kernel. 
+If something goes wrong, you can revert to the snapshot.
+
+晚上除了服务器都是好的
+Did you check the IP rules, both for IPv4 and IPv6?
+Did you also try a test with NetPerfMeter and a saturated flow?
+These are only bandwidth statistics. Use Wireshark to check whether subflows are established.
+Note: If there is not enough data to send, MPTCP may be unable to put data on subflows. 
+Therefore, try with a saturated NetPerfMeter flow, in order to verify that your setup is working.
+
+A note on NorNet Core: UiB and HiN are both planning maintenance at their sites. 
+See the mails on the NorNet users list. 
+These sites will have some downtime during the next few days.
