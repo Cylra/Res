@@ -148,3 +148,19 @@ Therefore, try with a saturated NetPerfMeter flow, in order to verify that your 
 A note on NorNet Core: UiB and HiN are both planning maintenance at their sites. 
 See the mails on the NorNet users list. 
 These sites will have some downtime during the next few days.
+
+--------------------------------------
+2017年9月28日凌晨00:46
+srs_ipv6 v3.0 NEAT有了新进展
+--------------------------------------
+Have all possible sub-flows been established? 
+Note: you can tell Wireshark to filter for SYN and SYN/ACK, to only see (sub-)flow connection establishments. 
+This makes it easier to check.
+There is a lot of bug fixing activity ongoing in the MPTCP repository at UCL during in the last few days. 
+I just built a 4.9.52 kernel with the latest MPTCP updates in my kernel package repository.
+If you use my kernel repository, note that kernels will *not* update with "apt-get dist-upgrade". 
+You have to manually call "apt-get install ..." for the new version.
+
+I furthermore made some progress with SRS+NEAT. 
+It can now build and start up (I patched the underlying state-threads library to not need epoll), but there is still some problem in the event handling. 
+I need to debug this further.
