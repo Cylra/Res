@@ -162,5 +162,6 @@ If you use my kernel repository, note that kernels will *not* update with "apt-g
 You have to manually call "apt-get install ..." for the new version.
 
 I furthermore made some progress with SRS+NEAT. 
-It can now build and start up (I patched the underlying state-threads library to not need epoll), but there is still some problem in the event handling. 
+It can now build and start up (I patched the underlying state-threads library to not need epoll), 
+but there is still some problem in the event handling. 
 I need to debug this further.
