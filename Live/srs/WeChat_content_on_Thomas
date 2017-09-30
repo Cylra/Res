@@ -165,3 +165,20 @@ I furthermore made some progress with SRS+NEAT.
 It can now build and start up (I patched the underlying state-threads library to not need epoll), 
 but there is still some problem in the event handling. 
 I need to debug this further.
+
+--------------------------------------
+2017年9月30日中午12:22
+srs_ipv6 v3.0
+--------------------------------------
+"Saturated" sender means that it uses all the capacity provided by the network. 
+So, if you have a path providing you 100 Mbit/s, the saturated sender's flow should use ca. 100 Mbit/s (a little bit less, due to overhead). 
+For real-time video, I doubt that your sender is saturated. If your video is e.g. VBR with e.g. 2 to 10 Mbit/s (depending on scenes), 
+but one of your paths (subflow) offers already a capacity of 20 Mbit/s, 
+there is no need to put data on another path (subflow) -- there is simply no data to send.
+To test and debug your scenario, try to make the test as simple as possible: run a single, saturated MPTCP flow with NetPerfMeter first. 
+Then, you can see whether all paths are established, and used. 
+If this simple setup works, then you can have a look into the much more complex SRS setup. 
+If this simple setup does not work, you will know that the setup -- and not SRS -- has a problem.
+For Wireshark, use the filter "tcp.flags.syn==1". Then, it will only display TCP packets with SYN flag set. 
+So, if you see SYN and a SYN+ACK as response, 
+you will know that the corresponding subflow has been established successfully.
