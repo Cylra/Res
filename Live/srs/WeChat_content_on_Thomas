@@ -182,3 +182,33 @@ If this simple setup does not work, you will know that the setup -- and not SRS 
 For Wireshark, use the filter "tcp.flags.syn==1". Then, it will only display TCP packets with SYN flag set. 
 So, if you see SYN and a SYN+ACK as response, 
 you will know that the corresponding subflow has been established successfully.
+
+晚上22:00
+Could you send the output of "ifconfig", 
+as well as the settings of the sysctls related to MPTCP on both machines?
+You used Wireshark to sniff on  the "any" interface?
+What happens when you repeat the test with IPv4?
+
+--------------------------------------
+2017年10月1日早上10:24
+srs_ipv6 v3.0 Thomas认为路由表需要手动配置
+--------------------------------------
+Did you run Wireshark on the client side, or on the server side?
+Try on the other side as well. May be a firewall blocks the SYN packet?
+Did you try the same scenario with IPv4?
+I noticed that all your IPv6 addresses are in the same /64 network. 
+Should be okay, but may be a special case.
+Can you show me the IP rules and corresponding routing tables?
+ip -6 rule show
+ip -6 route show table ＜table＞
+There are no routing rules set! Without these rules, MPTCP cannot work properly. 
+See my LinuxCon 2016 slides for examples.
+https://simula.no/file/linuxcon2016-presentationpdf/download
+Pages 11 to 14, in particular.
+IPv4 and IPv6 are different protocols, using different routing tables. 
+IPv4 on one interface, IPv6 on the other can work. 
+But using the same protocol on both interfaces will not work properly without routing rules. 
+Without these rules, the output interface is chosen based on the default route. 
+Then, the other interface is not used.
+See also http://multipath-tcp.org/pmwiki.php/Users/ConfigureRouting .
+It cannot work properly without the right configuration of IP rules and routing tables.
