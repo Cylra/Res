@@ -1,0 +1,63 @@
+#! /bin/bash
+
+eth0="eth0"
+eth1="eth1"
+
+if [ `id -u` -ne 0 ]
+then
+    echo "need sudo permission"
+    exit 1
+fi
+
+if [ $# -lt 2 ]
+then
+    echo "$0 block|unblock block|unblock"
+    exit 1
+fi
+
+clean()
+{
+    iptables -F INPUT
+    iptables -F OUTPUT
+    ip6tables -F INPUT
+    ip6tables -F OUTPUT
+}
+
+unblock()
+{
+    echo -e "\x1b[32mUnblocking $interface\x1b[0m"
+    iptables  -D INPUT  -i $interface -j DROP 2> /dev/null
+    iptables  -D OUTPUT -o $interface -j DROP 2> /dev/null
+    ip6tables -D INPUT  -i $interface -j DROP 2> /dev/null
+    ip6tables -D OUTPUT -o $interface -j DROP 2> /dev/null
+    #ifup $interface
+}
+
+block()
+{
+    local interface="$1"
+    echo -e "\x1b[31mBlocking $interface\x1b[0m"
+    iptables  -A INPUT  -i $interface -j DROP
+    iptables  -A OUTPUT -o $interface -j DROP
+    ip6tables -A INPUT  -i $interface -j DROP
+    ip6tables -A OUTPUT -o $interface -j DROP
+    #ifdown $interface
+}
+
+
+block_or_unblock()
+{
+    local interface="$1"
+    local mode="$2"
+    if [ "$mode" = "block" ] ; then
+        block $interface
+    elif [ "$mode" = "unblock" ] ; then
+        unblock $interface
+    else
+        echo >&2 "ERROR: Bad blocking mode $mode for interface $interface"
+    fi
+}
+
+clean
+block_or_unblock $eth0 "$1"
+block_or_unblock $eth1 "$2"

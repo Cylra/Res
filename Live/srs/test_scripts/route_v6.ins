@@ -1,0 +1,14 @@
+
+ip -6 rule show
+
+ip -6 route show table eth0
+ip -6 route show table eth1
+
+ip -6 rule add from 2001:250:3801:6e:ab5a:2adc:707c:44a2    table eth0
+ip -6 rule add from 2001:250:3801:6e:c481:323b:4e0:86b1     table eth1
+
+ip -6 route add 2001:250:3801:6e::/64 scope link dev eth0   table eth0
+ip -6 route add default via 2001:250:3801:6e::1  dev eth0   table eth0
+
+ip -6 route add 2001:250:3801:6e::/64 scope link dev eth1   table eth1
+ip -6 route add default via 2001:250:3801:6e::1  dev eth1   table eth1
