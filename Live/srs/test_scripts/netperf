@@ -1,0 +1,14 @@
+node
+netperfmeter [2001:250:3801:6e:fa09:f238:143c:f442]:9000 -tcp const0:const1460:const0:const0:cmt=mptcp
+netperfmeter 192.168.20.48:9000 -tcp const0:const1460:const0:const0:cmt=mptcp
+
+
+
+
+bao
+netperfmeter [2001:250:3801:6e:f243:a7a6:1d71:ffe4]:9000 -tcp const0:const1460:const0:const0:cmt=mptcp
+netperfmeter 192.168.20.69:9000 -tcp const0:const1460:const0:const0:cmt=mptcp
+
+
+
+netperfmeter [2001:250:3801:6e:d348:eb3c:8aa:df70]:9000 -tcp const0:const1460:const0:const0:cmt=mptcp
