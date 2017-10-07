@@ -1,0 +1,20 @@
+#! /usr/bin/env bash
+#https://linux.cn/article-5417-1.html
+
+if [ $# -lt 1 ]
+then
+    echo "$0 block| unblock"
+    exit 1
+fi
+
+if [ "$1" = "block" ]
+then
+    sudo sh -c 'echo 1 > /proc/sys/net/ipv6/conf/all/disable_ipv6'
+elif [ "$1" = "unblock" ]
+then
+    #sudo ifdown ${IF1} ${IF2} 2> /dev/null
+    #sudo ifup ${IF1} ${IF2} 2> /dev/null
+    echo
+else
+    echo "unknow command"
+fi
