@@ -1,0 +1,63 @@
+#! /bin/bash
+
+eth0="eth0"
+eth1="eth1"
+IF1=("2001:250:3801:6e:ab5a:2adc:707c:44a2")
+IF2=("2001:250:3801:6e:c481:323b:4e0:86b1")
+
+NETWORK="2001:250:3801:6e::"
+ROUTER="2001:250:3801:6e::1"
+
+if [ `id -u` -ne 0 ]
+then
+    echo "need sudo permission"
+    exit 1
+fi
+
+if [ $# -lt 1 ]
+then
+    echo "$0 add | del | rule | route"
+    exit 0
+fi
+
+if [ $1 = "rule" ]
+then
+    ip -6 rule show
+elif [ $1 = "route" ]
+then
+    echo "show table ${eth0}"
+    ip -6 route show table ${eth0}
+    echo
+    echo "show table ${eth1}"
+    ip -6 route show table ${eth1}
+elif [ $1 = "add" -o $1 = "del" ]
+then
+    if [ $1 = "add" -a `ip -6 rule | wc -l` -gt 2 ]
+    then
+        echo "route has been established"
+        exit 0
+    fi
+    if [ $1 = "del" -a `ip -6 rule | wc -l` -eq 2 ]
+    then
+        echo -e "route \033[31mhas not\033[0m been established"
+        exit 0
+    fi
+
+    for ipv6 in ${IF1[*]}
+    do
+        ip -6 rule $1 from ${ipv6} table ${eth0}
+    done
+
+    for ipv6 in ${IF2[*]}
+    do
+        ip -6 rule $1 from ${ipv6} table ${eth1}
+    done
+
+    ip -6 route $1 ${NETWORK}/64 dev ${eth0} scope link table ${eth0}
+    ip -6 route $1 default via ${ROUTER} dev ${eth0} table ${eth0}
+
+    ip -6 route $1 ${NETWORK}/64 dev ${eth1} scope link table ${eth1}
+    ip -6 route $1 default via ${ROUTER} dev ${eth1} table ${eth1}
+else
+    echo "unknow command"
+fi
