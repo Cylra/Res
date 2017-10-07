@@ -1,0 +1,48 @@
+Configuring IP rules and corresponding routing tables is simple.
+
+Once you add a new interface INTERFACE, with address ADDRESS in network NETWORK (just set in your addresses):
+
+Example:
+INTERFACE=eth0
+NETWORK=3ffe:dead:beef:ffff::/64
+ADDRESS=3ffe:dead:beef:ffff::2a
+ROUTER= 3ffe:dead:beef:ffff::1
+
+For each interface, choose a different routing table number TABLE, e.g. 1 or 2. The value does not matter, it must just be unique. Use e.g. 1 for interface #1, 2 for interface #2, etc.
+
+E.g. TABLE=2
+
+Then, all you need is:
+ip -6 route add NETWORK scope link dev INTERFACE table TABLE
+ip -6 route add default via ROUTER dev INTERFACE table TABLE
+ip -6 rule add from ADDRESS table TABLE
+
+When removing addresses, just use "remove" instead of "add":
+ip -6 rule remove from ADDRESS table TABLE
+ip -6 route remove default via ROUTER dev INTERFACE table TABLE
+ip -6 route remove NETWORK scope link dev INTERFACE table TABLE
+
+Check your configuration with:
+ip -6 rule show
+ip -6 route show table TABLE
+
+======
+
+Before you proceed with anything related to MPTCP:
+ping6 -I SOURCE DESTINATION
+(set addresses for source and destination -- SOURCE and DESTINATION -- according to your configuration)
+
+Make sure that reach combination, which will correspond to a possible MPTCP subflow, works before proceeding. If Ping6 does not work, MPTCP will also not work.
+
+======
+
+In Ubuntu, you can set addresses in /etc/network/interfaces. If you use this, you can specify post-up and pre-down rules, just setting/removing the configuration above, e.g.:
+
+iface eth1 inet6 static
+    address ADDRESS
+    network NETWORK
+    gateway GATEWAY
+    post-up /sbin/ip -6 route add NETWORK scope link dev INTERFACE table TABLE && /sbin/ip -6 route add default via ROUTER dev INTERFACE table TABLE && /sbin/ip -6 rule add from ADDRESS table TABLE
+    pre-down /sbin/ip -6 rule remove from ADDRESS table TABLE && /sbin/ip -6 route remove default via ROUTER dev INTERFACE table TABLE && /sbin/ip -6 route remove NETWORK scope link dev INTERFACE table TABLE
+
+Again, test the settings thoroughly (ip -6 rule show, ip -6 route show table TABLE) before proceeding!
