@@ -1,0 +1,27 @@
+#! /bin/bash
+
+if [ $# -lt 1 ]
+then
+    echo "$0 block | unblock | clean"
+    exit 1
+fi
+
+if [ "$1" = "block" ]
+then
+    iptables -A INPUT -i eth0 -j DROP
+    iptables -A OUTPUT -o eth0 -j DROP
+    ip6tables -A INPUT -i eth0 -j DROP
+    ip6tables -A OUTPUT -o eth0 -j DROP
+elif [ "$1" = "unblock" ]
+then
+    iptables -D INPUT -i eth0 -j DROP
+    iptables -D OUTPUT -o eth0 -j DROP
+    ip6tables -D INPUT -i eth0 -j DROP
+    ip6tables -D OUTPUT -o eth0 -j DROP
+elif [ "$1" = "clean" ]
+then
+    iptables -F INPUT
+    iptables -F OUTPUT
+    ip6tables -F INPUT
+    ip6tables -F OUTPUT
+fi
