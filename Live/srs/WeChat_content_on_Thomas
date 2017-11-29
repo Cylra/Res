@@ -212,3 +212,128 @@ Without these rules, the output interface is chosen based on the default route.
 Then, the other interface is not used.
 See also http://multipath-tcp.org/pmwiki.php/Users/ConfigureRouting .
 It cannot work properly without the right configuration of IP rules and routing tables.
+
+--------------------------------------
+2017年11月28日晚上21:01
+srs retrieve_local_ips 赛尔云主机提供CentOS 6.8
+--------------------------------------
+我问Thomas: Cent OS 6.8 supports MPTCP and Netperfmeter?
+他回答：I never used CentOS. Is it a branch of Fedora?，Of course, 
+you can always build MPTCP-capable kernel and NetPerfMeter from the sources.
+For Ubuntu, you can simply use my PPA (all current Ubuntu versions) and 
+my kernel repository at https://packages.nntb.no/nornet-kernel/ (only Ubuntu 16.04) to 
+install MPTCP kernel and NetPerfMeter (also NEAT, etc.) from already-built packages. 
+This also works with Deepin Linux.
+Is there any specific reason for using CentOS?
+For all current versions of Fedora, I have package repositories for the applications (i.e. NetPerfMeter, NEAT, etc.) 
+at https://packages.nntb.no/nornet-applications/fedora/ . 
+But there are no MPTCP kernel packages. CentOS is somewhat related to Fedora, but the versions of dependencies may be different. 
+So, some Fedora packages may work under CentOS, but others may not. 
+Probably, in case of CentOS, it is best to compile NetPerfMeter from the sources.
+I see. No problem. Compiling from source should be fine. 
+I will have a look, in order to see whether this causes any problems for NetPerfMeter, etc..
+Are you sure your system is CentOS 6.8? The current CentOS version is 7.
+There is also a CentOS 6.9. CentOS 6.8 is denoted as "deprecated".
+Can you just login into your cloud system and check the version? Then, I will install the same version in a test VM.
+Could you make an SSH login into the system, in order to see what is actually installed?
+Call "cat /etc/centos-release". This will display the installed version.
+
+--------------------------------------
+2017年11月29日凌晨02:07
+srs retrieve_local_ips Thomas使用CentOS 7.0测试了全部软件安装
+--------------------------------------
+For testing, I installed CentOS 7.0 (the current version in a VM). With this, I can compile NetPerfMeter, SRS, and the MPTCP kernel. 
+NEAT will not work directly, since it depends on some rather new libraries. But NetPerfMeter, SRS and MPTCP should be straightforward.
+
+This is what I did (in MediaWiki markup; I hope WeChat does not make it unreadable):
+
+Start with CentOS-7 ISO
+* Automatic partitioning
+* Create administrator user with sudo permissions
+
+= Basic Server installation =
+
+ sudo yum -y upgrade
+ sudo yum -y groupinstall "Server Platform"
+ sudo yum -y groupinstall "Development Tools"
+ sudo yum -y install git
+
+= NetPerfMeter =
+
+ mkdir ~/src
+ cd ~/src
+ git clone https://github.com/dreibh/netperfmeter.git
+ sudo yum install -y cmake gcc-c++ lksctp-tools-devel valgrind-devel bzip2-devel
+ cd ~/src/netperfmeter
+ ./autogen.sh
+ sudo make install
+
+= NEAT =
+
+<b>!!! THIS DOES NOT WORK! CentOS does not have libuv-devel! !!!</b>
+
+ cd ~/src
+ git clone https://github.com/NEAT-project/neat.git
+ cd ~/src/neat
+ git checkout dreibh/neat-socketapi
+ sudo yum install -y cmake jansson-devel ldns-devel libmnl-devel lksctp-tools-devel openssl-devel libuv-devel
+ cmake -DCMAKE_INSTALL_PREFIX=/usr -DSOCKET_API=1 -DSCTP_MULTISTREAMING=1 -DFLOW_GROUPS=1 .
+ make
+
+= SRS =
+ cd ~/src
+ git clone https://github.com/dreibh/srs.git
+ cd srs
+ git checkout ossrs3.0-ipv6
+ cd trunk
+ ./configure
+
+= MPTCP =
+
+== Prepare sources ==
+
+ cd ~/src
+ git clone https://github.com/dreibh/planetlab-kernel.git
+ git clone https://github.com/dreibh/mptcp.git mptcp-kernel
+ cd mptcp-kernel
+ sudo yum -y install ncurses-devel hmaccalc zlib-devel binutils-devel elfutils-libelf-devel
+ git checkout td-socketoptions-v0.93-unstable
+
+== Configure the kernel ==
+
+ cat /boot/config-`uname -r` ../planetlab-kernel/config-planetlab >.config && make menuconfig
+
+== Build ==
+
+ TBD
+
+ I did not fully test the kernel build yet, but "make bzImage" and "make modules" work. 
+ Some additional work is necessary here to install the kernel and update the bootloader configuration, 
+ but this should be straightforward.
+
+--------------------------------------
+2017年11月29日下午18:08
+--------------------------------------
+At least under CentOS 7, I can build, install and boot (kernel needs to be selected in boot menu) an MPTCP kernel. The build and install procedure is as follows:
+
+== Configure the kernel ==
+
+Note: CONFIG_IPV6=y must be set for MPTCP, CONFIG_IPV6=m (i.e. IPv6 as module) will not work! "make menuconfig" will just silently drop the MPTCP configuration!!
+
+ make mrproper
+ cat /boot/config-`uname -r` ../planetlab-kernel/config-planetlab >.config
+ sed -i -e "s/CONFIG_IPV6=m/CONFIG_IPV6=y/g" .config
+ make menuconfig
+ grep MPTCP .config
+
+== Build and Install ==
+ cores=`getconf _NPROCESSORS_ONLN 2>/dev/null`
+ make -j$cores
+ sudo make modules_install
+ sudo make install
+ sudo grub2-mkconfig
+
+ CentOS 6.9 works as well. Grub just has to be configured with "grub-install /dev/sda" instead of "sudo grub2-mkconfig".
+ One note for CentOS 6.9: The "sed" call above sets IPv6 as build-in, instead of providing it as a module. 
+ MPTCP requires IPv6 to be build-in. Otherwise, "make menuconfig" will silently drop all MPTCP configuration. 
+ You can check the MPTCP configuration with "grep MPTCP .config" before compiling the new kernel.
