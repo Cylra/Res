@@ -8,8 +8,10 @@ sudo apt-get -y install google-chrome-stable
 
 sudo apt-get -y install git
 sudo apt-get -y install bwm-ng
+sudo apt-get -y install vim
+sudo apt-get -y install unar
 
-#添加Thomas的PPA
+#添加Thomas的PPA,添加公钥,需要按enter
 sudo add-apt-repository ppa:dreibh/ppa
 sudo apt-get update
 sudo apt-get -y install netperfmeter
