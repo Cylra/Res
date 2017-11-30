@@ -22,7 +22,13 @@ sudo apt-get -y install libssl-dev
 
 cd ~
 git clone --depth=1 git://github.com/multipath-tcp/mptcp.git
-
+: '
+cd mptcp
+sudo make menuconfig
+sudo make -j8
+sudo make modules_install
+sudo make install
+'
 #wireshark需要按enter选择,取消自动安装
 #sudo apt-get -y install wireshark
 

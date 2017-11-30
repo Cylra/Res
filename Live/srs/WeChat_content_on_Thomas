@@ -337,3 +337,12 @@ Note: CONFIG_IPV6=y must be set for MPTCP, CONFIG_IPV6=m (i.e. IPv6 as module) w
  One note for CentOS 6.9: The "sed" call above sets IPv6 as build-in, instead of providing it as a module. 
  MPTCP requires IPv6 to be build-in. Otherwise, "make menuconfig" will silently drop all MPTCP configuration. 
  You can check the MPTCP configuration with "grep MPTCP .config" before compiling the new kernel.
+
+ --------------------------------------
+2017年11月29日下午22:04
+我的电脑配路由表使用名字会报错
+sudo ip -6 rule add from 2001:250:3801:6e:b6a5:ded4:7bad:f668 table eth0
+Error: argument "eth0" is wrong: invalid table ID
+--------------------------------------
+Tables are given by numbers. If you want to use names for tables, you can define a name-number mapping in /etc/iproute2/rt_tables.
+See also https://simula.no/file/linuxcon2016-presentationpdf/download (PDF file), page 13.
