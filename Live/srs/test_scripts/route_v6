@@ -1,12 +1,23 @@
 #! /bin/bash
 
-eth0="eth0"
-eth1="eth1"
-IF1=("2001:250:3801:6e:ab5a:2adc:707c:44a2")
-IF2=("2001:250:3801:6e:c481:323b:4e0:86b1")
+#20171202 自动获取网卡和IPv6地址
+#过滤回环和WiFi(设备首字母为w)
+devs=`ifconfig | grep -o "^\w*" | grep -v -E '^(lo|[wW])'`
+if [ `echo "$devs" | wc -l` -lt 2 ]
+then
+    echo "need 2 network cards"
+    exit 1
+fi
 
-NETWORK="2001:250:3801:6e::"
-ROUTER="2001:250:3801:6e::1"
+eth0=`echo $devs | awk '{print $1}'`
+eth1=`echo $devs | awk '{print $2}'`
+#有多个IPv6 Global地址,只取第一个
+#直接在``两边添加()无法形成一个数组
+IF1[0]=`ifconfig $eth0 | grep -o -P '\b[23][\w:]*(?=/)' | sed -n 1p`
+IF2[0]=`ifconfig $eth1 | grep -o -P '\b[23][\w:]*(?=/)' | sed -n 1p`
+
+NETWORK=`echo ${IF1[0]} | grep -o -P "^\w*(:\w*){3}"`"::"
+ROUTER=$NETWORK"1"
 
 if [ `id -u` -ne 0 ]
 then
