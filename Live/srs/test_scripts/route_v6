@@ -41,16 +41,12 @@ then
     echo
     echo "show table ${eth1}"
     ip -6 route show table ${eth1}
-elif [ "$1" = "add" -o "$1" = "del" ]
+#20171203 更换网卡后无法del原有网卡的路由信息,将add和del分开处理
+elif [ "$1" = "add" ]
 then
-    if [ "$1" = "add" -a `ip -6 rule | wc -l` -gt 2 ]
+    if [ `ip -6 rule | wc -l` -gt 2 ]
     then
         echo "route has been established"
-        exit 0
-    fi
-    if [ "$1" = "del" -a `ip -6 rule | wc -l` -eq 2 ]
-    then
-        echo -e "route \033[31mhas not\033[0m been established"
         exit 0
     fi
 
@@ -69,6 +65,26 @@ then
 
     ip -6 route "$1" ${NETWORK}/64 dev ${eth1} scope link table ${eth1}
     ip -6 route "$1" default via ${ROUTER} dev ${eth1} table ${eth1}
+#del指令删除所有的自定义路由信息
+elif [ "$1" = "del" ]
+then
+    if [ `ip -6 rule | wc -l` -eq 2 ]
+    then
+        echo -e "route \033[31mhas not\033[0m been established"
+        exit 0
+    fi
+
+    tables=`ip -6 rule | grep -o -P "(?<=lookup ).*$" | grep -v -P "main|local|default|unspec"`
+    num=`echo "$tables" | wc -l`
+    i=1
+    while [ $i -le $num ]
+    do
+        table_name=`echo $tables | awk "{print $"$i"}"`
+        ip -6 rule del table $table_name
+        ip -6 route flush table $table_name
+
+        let i++
+    done
 else
     echo "unknow command"
 fi
