@@ -1,0 +1,57 @@
+20181022 给罗煜做实验的教程
+root用户和登录密码均是nornet
+
+MPTCP内核的安装,MPTCP源码已下载在本地,文件夹名字为mptcp
+(参考https://blog.csdn.net/bryanting/article/details/51923534)
+首先提前安装好依赖环境,任意打开一个终端(Terminal)执行
+	sudo apt-get update
+	sudo apt-get install libncurses5-dev
+	sudo apt-get install build-essential
+进入mptcp文件夹,右键,在终端(terminal)打开,配置要编译的内核
+	sudo make menuconfig
+弹出的配置界面要编译部分参考上面的网址
+按方向右(->)到exit,保存配置，退出。
+
+编译MPTCP内核，在当前终端(terminal)输入
+	sudo make -j8
+(大概30-60min)编译结束后,输入
+	sudo make modules_install -j8
+(大概5-10min)编译结束后,输入
+	sudo make install
+结束后重启,选择4.9.36内核进入
+
+确认当前是不是MPTCP内核,任意打开一个终端(Terminal)执行
+	dmesg | grep MPTCP
+出现一行0.9x的显示结果即可
+
+push/server/client端各自的执行脚本在下载(download)或者home目录下
+
+查看ip,任意打开一个终端(Terminal)执行
+	ifconfig
+查看网卡流量情况,任意打开一个终端(Terminal)执行
+	bwm-ng
+若要保存client端流量信息为文件
+	bwm-ng -o csv -F 任意文件名.csv
+查看2台主机是否联通,任意打开一个终端(Terminal)执行
+	ping 目标主机ipv4地址
+	或ping6 目标主机ipv6地址
+
+中断当前执行的命令,按键ctrl+c
+
+先使用netperfmeter测试2台主机之间4张网卡是否工作正常
+netperfmeter使用,在接收端电脑,任意打开一个终端(Terminal)执行
+	netperfmeter 9000
+在发送端电脑,任意打开一个终端(Terminal)执行
+	netperfmeter 接收端任意一个ipv4地址:9000 -tcp const0:const1460:const0:const0:cmt=mptcp
+	或者netperfmeter [接收端任意一个ipv6地址]:9000 -tcp const0:const1460:const0:const0:cmt=mptcp
+
+若一切正常,开始srs直播实验
+启动服务器,在服务器文件夹,右键,在终端(terminal)打开
+	./test-srs
+在push端文件夹,依据IPv4/IPv6修改test-ffmpeg/test-ffmpeg6文件中的ip地址为server主机的任意1个地址,右键,在终端(terminal)打开
+	./test-ffmpeg
+	或./test-ffmpeg6
+在client端文件夹,依据IPv4/IPv6修改test-client/test-client6文件中的ip地址为server主机的任意1个地址,右键,在终端(terminal)打开
+	./test-client
+	或./test-client6
+正确情况为push端2张网卡有出,server端2张网卡有出有进,client端2张网卡有进
