@@ -18,7 +18,8 @@ public class CollectPDFMessageAction extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		System.out.println("CollectionPDFMessageAction");
-		String path = "/home/long/mptcp/";
+		//String path = "/home/long/mptcp/";
+		String path = public_var.get_path();
 		
 		PrintWriter pw = response.getWriter();
 		

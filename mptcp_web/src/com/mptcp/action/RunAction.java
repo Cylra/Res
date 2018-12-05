@@ -1,6 +1,8 @@
 package com.mptcp.action;
 
-
+/*点击运行脚本后此执行此服务器程序,
+将指令执行时的输出写入ResultCongestionControl文件
+*/
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -29,13 +31,16 @@ public class RunAction extends HttpServlet
 		
 		
 		
-		String path = "/home/long/mptcp/";
+		//String path = "/home/long/mptcp/";
+		String path = public_var.get_path();
+		System.out.println("*run RunAction begin*");
 		
-		String cmd = "./autoRun AutoCreatedCongestionControl";//.
+		//String cmd = "./autoRun AutoCreatedCongestionControl";//.
+		String cmd = "ifconfig";
 		Runtime runtime = Runtime.getRuntime();
 		
 
-		Process p = runtime.exec(cmd, null, new File("/home/long/mptcp/"));
+		Process p = runtime.exec(cmd, null, new File(path));
 		
 		BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
 		
@@ -65,6 +70,7 @@ public class RunAction extends HttpServlet
 		
 		bw.close();
 		br.close();
+		System.out.println("*run RunAction End*");
 		
 	}
 	

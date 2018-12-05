@@ -26,8 +26,10 @@ public class CollectResultAction extends HttpServlet
 //		path +="../";//�˴���Ϊ�˵õ���Ŀ��Ŀ¼
 		
 		
-		String path = "/home/long/mptcp/";
+		//String path = "/home/long/mptcp/";
 		
+		System.out.println("*run CollectResultAction Begin*");
+		String path = public_var.get_path();
 		PrintWriter pw = resp.getWriter();
 		
 		
@@ -39,7 +41,8 @@ public class CollectResultAction extends HttpServlet
 		{
 			pw.print(line+"\n");
 		}
-		
-		
+
+
+		System.out.println("*run CollectResultAction End*");
 	}
 }

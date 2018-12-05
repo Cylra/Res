@@ -1,4 +1,8 @@
 package com.mptcp.action;
+/*
+处理从script.jsp页面获取的参数设置,参数无误就转入getScript.jsp
+进行处理并写入到脚本AutoCreatedCongestionControl里面
+ */
 
 import java.io.IOException;
 
@@ -24,7 +28,8 @@ public class configurationAction extends HttpServlet
 		boolean error = false; 
 		
 		//String path = getServletContext().getRealPath("/");
-		String path = "/home/long/mptcp/";
+		//String path = "/home/long/mptcp/";
+		String path = public_var.get_path();
 		try
 		{
 			String measurementName = req.getParameter("MesurementName");
@@ -120,6 +125,7 @@ public class configurationAction extends HttpServlet
 				String script = configScript.createCC(measurementName , sliceName , runtime , portBase , sshPrivateKey
 					,localNodeName , remoteNodeName , ipVersion , cmt , sndBufSize , pathMgr , cc , path , req , resp);
 				req.setAttribute("script", script);
+				req.setAttribute("scriptName", "auto-cc");
 				System.out.println("-----------------------");
 				req.getRequestDispatcher("getScript.jsp").forward(req,resp);			
 			}		

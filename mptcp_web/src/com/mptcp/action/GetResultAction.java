@@ -21,13 +21,14 @@ public class GetResultAction extends HttpServlet
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException
 	{
-		String path = "/home/long/mptcp/";
+		//String path = "/home/long/mptcp/";
+		String path = public_var.get_path();
 		
 		String cmd = "./autoRun rsync";//.
 		Runtime runtime = Runtime.getRuntime();
 		
 
-		Process p = runtime.exec(cmd, null, new File("/home/long/mptcp/"));
+		Process p = runtime.exec(cmd, null, new File(path));
 		
 		BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
 		

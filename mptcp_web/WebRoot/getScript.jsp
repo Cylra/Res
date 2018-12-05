@@ -127,7 +127,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				{
 					$("#area").html(script);
 					$("#run").val("运行脚本");
-					// $("#result").css("display" , "none");
+					$("#result").css("display" , "none");
 				}
 				else
 				{
@@ -140,7 +140,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						
 						if(null != xmlHttpRequest)
 						{
-							xmlHttpRequest.open("POST","RunAction",true);
+							xmlHttpRequest.open("GET","RunAction",true);
 							xmlHttpRequest.onreadystatechange = RunResult;
 							xmlHttpRequest.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 							var scriptName = "scriptName="+" <%=scriptName  %>"
@@ -183,6 +183,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						$("#result").css("display" , "block");
 						flag = 1;
 						clearInterval(interval);
+						//显示脚本运行时的输出,应注释掉
 						CollecResult();
 						
 					}
