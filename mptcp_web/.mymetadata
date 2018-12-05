@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="mptcp"
+  id="myeclipse.1473993014482"
+  context-root="/mptcp"
+  j2ee-spec="5.0"
+  archive="mptcp.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+

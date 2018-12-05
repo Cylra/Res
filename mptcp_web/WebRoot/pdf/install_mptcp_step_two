@@ -1,0 +1,15 @@
+#!/bin/bash
+
+##this script is used to install the mptcp protocal automatically ! when you run it, please use root access . 
+##this script can just work well on ubuntu14.04.2 .
+
+echo "Configure MPTCP"
+
+#run mptcp_up and mptcp_down
+#configure mptcp
+sysctl -w net.mptcp.mptcp_enabled=1;
+sysctl -w net.mptcp.mptcp_checksum=1;
+sysctl -w net.mptcp.mptcp_syn_retries=3;
+sysctl -w net.mptcp.mptcp_path_manager=fullmesh;
+
+exit 0; 

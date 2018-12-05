@@ -1,0 +1,70 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>test</title>
+<style>
+.picutre_many img{width:300px; height:200px;}
+</style>
+</head>
+<body>
+    <div id="list" class=" picutre_many"
+        style="overflow: hidden; height: 200px; width: 1100px; margin: 0 auto;">
+        <table cellspacing="10" cellpadding="10"
+            style="width: 680px; border: 0px;">
+            <tr>
+                <td id="list1">
+                    <table style="border: 0px;" cellpadding="20" cellspacing="20">
+                        <tr id="pic" >
+                            <td><img style="border: 0px;" alt="" src="images/haw.jpeg" /></td>
+                            <td><img style="border: 0px;" alt="" src="images/srl.jpeg" /></td>
+                            <td><img style="border: 0px;" alt="" src="images/uio.jpeg" /></td>
+                            <td><img style="border: 0px;" alt="" src="images/hu.jpg" /></td>
+                            <td><img style="border: 0px;" alt="" src="images/hioa.jpeg" /></td>
+                            <td><img style="border: 0px;" alt="" src="images/hkc.jpeg" /></td>
+                            <td><img style="border: 0px;" alt="" src="images/kau.jpeg" /></td>
+                            <td><img style="border: 0px;" alt="" src="images/kru.jpeg" /></td>
+                            <td><img style="border: 0px;" alt="" src="images/ku.jpeg" /></td>
+                            <td><img style="border: 0px;" alt="" src="images/nicta.jpeg" /></td>
+                            <td><img style="border: 0px;" alt="" src="images/ntnu.jpeg" /></td>
+                            <td><img style="border: 0px;" alt="" src="images/nyu.jpeg" /></td>
+                            <td><img style="border: 0px;" alt="" src="images/hig.jpeg" /></td>
+                            <td><img style="border: 0px;" alt="" src="images/tuda.jpeg" /></td>
+                            <td><img style="border: 0px;" alt="" src="images/tukl.jpeg" /></td>
+			    			<td><img style="border: 0px;" alt="" src="images/ude.jpeg" /></td>
+                            <td><img style="border: 0px;" alt="" src="images/uia.jpeg" /></td>
+                            <td><img style="border: 0px;" alt="" src="images/uib.jpeg" /></td>
+                            <td><img style="border: 0px;" alt="" src="images/hin.jpeg" /></td>
+                            <td><img style="border: 0px;" alt="" src="images/uis.jpeg" /></td>
+                            <td><img style="border: 0px;" alt="" src="images/uit.jpeg" /></td>
+                            <td><img style="border: 0px;" alt="" src="images/unis.jpeg" /></td>
+                        </tr>
+                    </table>
+                </td>
+                <td id="list2"></td>
+            </tr>
+        </table>
+    </div>
+    <script type="text/javascript">
+        /*图片滚动效果*/
+        var speedpic = 20;//速度数值越大速度越慢
+        document.getElementById("list2").innerHTML = document.getElementById("list1").innerHTML;
+        function Marqueepic() {
+            if (document.getElementById("list2").offsetWidth
+                    - document.getElementById("list").scrollLeft <= 0) {
+                document.getElementById("list").scrollLeft -= document
+                        .getElementById("list1").offsetWidth;
+            } else {
+                document.getElementById("list").scrollLeft++;
+            }
+        }
+        var MyMarpic = setInterval(Marqueepic, speedpic);
+
+        document.getElementById("list").onmouseover = function() {
+            clearInterval(MyMarpic);
+        }
+        document.getElementById("list").onmouseout = function() {
+            MyMarpic = setInterval(Marqueepic, speedpic);
+        }
+    </script>
+</body>
+</html>

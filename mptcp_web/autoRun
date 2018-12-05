@@ -1,0 +1,27 @@
+#! /bin/bash
+
+if [ $1 = "rsync" ]; then
+	echo "Get Results"
+	echo "scp zhoufeng@gatekeeper.nntb.no:/home/zhoufeng/*pdf ./"
+#	ssh zhoufeng@gatekeeper.nntb.no 'R --vanilla <~/test/plot-test.R'
+	scp zhoufeng@gatekeeper.nntb.no:/home/zhoufeng/*pdf ./WebRoot/pdf/
+	exit
+fi
+
+if [ $1 = "plot" ]; then
+        echo "Plot Results"
+        ssh zhoufeng@gatekeeper.nntb.no 'R --vanilla <~/test/plot-test.R'
+        exit
+fi
+
+
+echo "chmod $1"
+chmod +x $1
+echo "copy script to testbed"
+echo "scp $1 zhoufeng@gatekeeper.nntb.no:/home/zhoufeng/test/"
+scp $1 zhoufeng@gatekeeper.nntb.no:/home/zhoufeng/test/
+echo "ssh zhoufeng@gatekeeper.nntb.no ./test/$1"
+ssh zhoufeng@gatekeeper.nntb.no ./test/$1
+
+echo "exit"
+exit

@@ -1,0 +1,83 @@
+#!/bin/bash -e
+#
+# Experiment MPTCP Setup Script
+# Copyright (C) 2016 by Thomas Dreibholz
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either ipVersion 3 of the License, or
+# (at your option) any later ipVersion.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+# Contact: dreibh@simula.no
+
+
+tryToLoadModules()
+{
+   echo -en "Loading $1 modules: "
+   pattern="$2"
+   shift ; shift
+   while [ $# -gt 0 ] ; do
+      directory="$1"
+      shift
+      if [ -e "$directory" ] ; then
+         modules="`find "$directory" -name "$pattern" | xargs --no-run-if-empty -n1 basename | sed -e "s/\.ko.*$//g" | sort`"
+         for module in $modules ; do
+            echo -en "$module "
+            modprobe $module >/dev/null 2>&1 || true
+         done
+      fi
+   done
+   echo ""
+}
+
+
+if [ $# -lt 1 ] ; then
+   echo >&2 "Usage: $0 init|cleanup"
+   exit 1
+fi
+
+
+if [ "$1" == "init" ] ; then
+   echo -e >&2 "\x1b[32mMPTCP: initialising\x1b[0m"
+
+   kernel=`uname -r`
+   tryToLoadModules "TCP"   "tcp_*.ko*"   /lib/modules/${kernel}/kernel/net/ipv4/   /lib/modules/${kernel}/extra/net/ipv4/
+   tryToLoadModules "MPTCP" "mptcp_*.ko*" /lib/modules/${kernel}/kernel/net/mptcp/  /lib/modules/${kernel}/extra/net/mptcp/
+   tryToLoadModules "SCTP"  "sctp*.ko*"   /lib/modules/${kernel}/kernel/net/sctp/   /lib/modules/${kernel}/extra/net/sctp/
+   tryToLoadModules "DCCP"  "dccp*.ko*"   /lib/modules/${kernel}/kernel/net/dccp/   /lib/modules/${kernel}/extra/net/dccp/
+   echo -en "Allowed TCP CCs: "
+   availableCCs=`sysctl net.ipv4.tcp_available_congestion_control | sed -e "s/.*= //g"`
+   sysctl -w net.ipv4.tcp_allowed_congestion_control="$availableCCs"
+
+   # ----- MPTCP settings ------------------------------------------------
+   sysctl -w net.mptcp.mptcp_enabled=1
+   sysctl -w net.mptcp.mptcp_path_manager=fullmesh
+   
+   sysctl -w net.ipv4.tcp_moderate_rcvbuf=0   # Turn off auto-tuning of the TCP receive buffer size
+   # sysctl -w net.netfilter.nf_conntrack_icmp_timeout=60
+
+   sysctl -w net.core.rmem_default=212992
+   sysctl -w net.core.rmem_max=16777216
+   sysctl -w net.core.wmem_default=212992
+   sysctl -w net.core.wmem_max=16777216
+   sysctl -w net.ipv4.tcp_rmem='4096 87380 16777216'
+   sysctl -w net.ipv4.tcp_wmem='4096 16384 16777216'
+   sysctl -w net.ipv4.tcp_mem='16777216 16777216 16777216'
+   sysctl -w net.ipv4.route.flush=1
+   sysctl -w net.ipv6.route.flush=1
+
+elif [ "$1" == "cleanup" ] ; then
+   echo -e >&2 "\x1b[32mMPTCP: cleaning up\x1b[0m"
+
+else
+   echo >&2 "Usage: Bad command $1!"
+   exit 1
+fi

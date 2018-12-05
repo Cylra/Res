@@ -1,0 +1,183 @@
+<!-- <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%> -->
+<html>
+<head>
+<title>Home</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="" />
+<script type="applisalonion/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+<!-- Custom Theme files -->
+<link href="css/style.css" rel='stylesheet' type='text/css' />	
+<link rel="stylesheet" href="css/slider.css">
+<script src="js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="js/move-top.js"></script>
+<script type="text/javascript" src="js/easing.js"></script>
+<!---<link href='http://fonts.useso.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+<link href='http://fonts.useso.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>-->
+<script type="text/javascript">
+			jQuery(document).ready(function($) {
+				$(".scroll").click(function(event){		
+					event.preventDefault();
+					$('html,body').animate({scrollTop:$(this.hash).offset().top},900);
+				});
+			});
+</script>
+
+
+</head>
+<body style="background-image:url(images/1.jpg);background-repeat:no-repeat;background-size:100%; ">
+<!--start-home-->
+	<!-- <div class="header-middle">
+		<a href="index.jsp"><img src="images/title.png" alt=" " /></a>
+	</div> -->
+	
+		<!--header-top-->
+	<div class="header-top">
+	  <div class="container">
+			 <nav class="navbar navbar-default">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+			  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			  </button>
+				<div class="logo" valign="top">
+					<h1><a href="index.jsp"><img src="images/title.png" /></a></h1>
+				</div>
+			</div>
+
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse nav-wil" id="bs-example-navbar-collapse-1">
+				  <div class="top-menu" valign="center">
+					<nav class="menu menu--francisco">
+							<ul class="nav navbar-nav menu__list">
+								<li class="menu__item"><a href="multiPath.jsp" class="menu__link"><span class="menu__helper">多路径传输技术</span></a></li>
+								<li class="menu__item"><a href="seachSite.jsp" class="menu__link"><span class="menu__helper">站点信息查询</span></a></li>
+								<li class="menu__item"><a href="script.jsp" class="menu__link"><span class="menu__helper">配置脚本及运行</span></a></li>
+								<li class="menu__item"><a href="chengguo.jsp" class="menu__link"><span class="menu__helper">成果展示</span></a></li>
+								<li class="menu__item menu__item--current"><a href="about.html" class="menu__link"><span class="menu__helper">关于我们</span></a></li>
+							</ul>
+						</nav>
+					</div>
+			</div>
+			<!-- /.navbar-collapse -->
+		</nav>
+
+	   <div class="clearfix"></div>
+	</div>
+	</div>
+
+	
+		<!-- Services -->
+		<div class="services" id="services">
+			<div class="container">
+
+				 
+				<div class="inner_tabs">
+				    
+					<div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+						<ul id="myTab" class="nav nav-tabs" role="tablist">
+							<li role="presentation" class="active"><a href="#expeditions" id="expeditions-tab" role="tab" data-toggle="tab" aria-controls="expeditions" aria-expanded="true">MPTCP 项目组负责人介绍</a></li>
+							<li role="presentation"><a href="#tree" role="tab" id="tree-tab" data-toggle="tab" aria-controls="tree">指导教师简介</a></li>
+							<li role="presentation"><a href="#tours" role="tab" id="tours-tab" data-toggle="tab" aria-controls="tours">团队成员简介</a></li>
+							
+						</ul>
+						<div id="myTabContent" class="tab-content">
+							<div role="tabpanel" class="tab-pane fade in active" id="expeditions" aria-labelledby="expeditions-tab">
+								<div class="col-md-5 col-sm-5 tab-image" style="margin-top: 1.5em;">
+									<img src="images/zhou.jpg" alt="Medicinal">
+								</div>
+								<div class="col-md-7 col-sm-7 tab-info">
+									<p style="color:#000;">周星:
+        海南大学信息科学技术学院教授、硕士生导师，海南大学督导委员会教学督导、海南省信息协会副秘书长、海南省信息协会信安委专家咨询委员会副主任。中国计算机协会会员、海南省信息化专家协会专家。 发表学术EI论文数10篇; 出版专著与教材6部; 获海南省科技进步三等奖1项、获海南省高等学校科研成果二等奖1项，海南省优秀论文多篇。主持和参与科研项目10余项：主持国家自然科学基金项目2项，主持完成中国外国专家局项目1项、主持完成国际合作项目1项， 主持完成海南省自然科学基金1项、主持横向课题“基于 Thin Client machine 的USB Smart Card身份认证系统”，参与德国研究基金项目（DFG）“下一代互联网协议架构体系的研究”项目、参与国家重点科技项目（攻关）计划“基于网络的黑客追踪技术”、参与上海市科学技术发展基金 （科技攻关）项目“可控计算机网络的分布式黑客追踪技术、参与横向课题“上海市公安信息通信网络安全方案”项目的方案设计、参与教育部高等教育司21世纪初高等教育教学改革项目。</p>
+								</div>
+								<div class="clearfix"></div>
+							</div>
+							<div role="tabpanel" class="tab-pane fade" id="tree" aria-labelledby="tree-tab">
+								<div class="col-md-5 col-sm-5 tab-image" height:40%;width:40%">
+									<img src="images/liao.jpg"  style="margin-top: 1.5em;" height="90%" width="70%" alt="Medicinal">
+								</div>
+								<div class="col-md-7 col-sm-7 tab-info" style="text-valign:center">
+									<p style="color:#000;" > 廖宇力，男，1982年生，硕士，海南大学信息科学技术学院公共计算机中心实验师，主要研究方向：云计算，高性能计算，计算机网络。</p>
+								</div>
+								<div class="col-md-5 col-sm-5 tab-image" height="40%" width="40%">
+									<img src="images/tan.jpg" alt="Medicinal" style="margin-top: 1.5em;">
+								</div>
+								<div class="col-md-7 col-sm-7 tab-info">
+									<p style="color:#000;"> 谭毓银，男，1981年生，硕士，海南大学信息科学技术学院信息安全系 高级实验师，主要研究方向：网络安全应用、数据库安全应用</p>
+								</div>
+								<div class="clearfix"></div>
+							</div>
+							<div role="tabpanel" class="tab-pane fade" id="tours" aria-labelledby="tours-tab">
+								<div class="col-md-5 col-sm-5 tab-image" style="margin-top: 1.5em;">
+									<img src="images/group.jpg" alt="Medicinal">
+								</div>
+								<div class="col-md-7 col-sm-7 tab-info">
+									<p style="color:#000;">
+											周峰，海南大学14级计算机科学与技术硕士研究生，方向为MPTCP协议中缓冲，发表相关论文。<br />
+王琨，海南大学14级软件工程硕士研究生，主要负责MPTCP多路径传输协议路径管理算法的研究，并以第一作者与国外学者共同撰写一篇论文。<br />
+谭齐宁，海南大学15级计算机科学与技术硕士研究生。方向为不同协议之间负载的研究。<br />
+程玺，海南大学15级软件工程硕士研究生。方向为多路径传输协议的鲁棒性。<br />
+匡汉宝，海南大学16级软件工程硕士研究生。<br />
+洪江水，海南大学16级软件工程硕士研究生。<br />
+龙宇，海南大学16级软件工程硕士研究生。<br /></p>
+
+								</div>
+								<div class="clearfix"></div>
+							</div>
+							
+							<div role="tabpanel" class="tab-pane fade" id="safari" aria-labelledby="safari-tab">
+								<div class="col-md-5 col-sm-5 tab-image">
+									<img src="images/6.jpg" alt="Medicinal">
+								</div>
+								<div class="col-md-7 col-sm-7 tab-info">
+									<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose.</p>
+								</div>
+								<div class="clearfix"></div>
+							</div>
+							<div role="tabpanel" class="tab-pane fade" id="trekking" aria-labelledby="trekking-tab">
+								<div class="col-md-5 col-sm-5 tab-image">
+									<img src="images/7.jpg" alt="Medicinal">
+								</div>
+								<div class="col-md-7 col-sm-7 tab-info">
+									<p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures.</p>
+								</div>
+								<div class="clearfix"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				
+			</div>
+		</div>
+		
+		<!--start-smooth-scrolling-->
+						<script type="text/javascript">
+									$(document).ready(function() {
+										/*
+										var defaults = {
+								  			containerID: 'toTop', // fading element id
+											containerHoverID: 'toTopHover', // fading element hover id
+											scrollSpeed: 1200,
+											easingType: 'linear' 
+								 		};
+										*/
+										
+										$().UItoTop({ easingType: 'easeOutQuart' });
+										
+									});
+								</script>
+								<!--end-smooth-scrolling-->
+		<a href="#house" id="toTop" class="scroll" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
+	<script src="js/bootstrap.js"></script>
+
+</body>
+</html>

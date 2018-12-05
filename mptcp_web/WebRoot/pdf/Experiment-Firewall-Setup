@@ -1,0 +1,80 @@
+#!/bin/bash -e
+#
+# Experiment Firewall Setup Script
+# Copyright (C) 2016 by Thomas Dreibholz
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either ipVersion 3 of the License, or
+# (at your option) any later ipVersion.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+# Contact: dreibh@simula.no
+
+
+if [ $# -lt 1 ] ; then
+   echo >&2 "Usage: $0 init|remove|show|block|unblock ..."
+   exit 1
+fi
+
+if [ "$1" == "init" ] ; then
+   echo -e >&2 "\x1b[32mFirewall: initialising\x1b[0m"
+   for iptablesCommand in iptables ip6tables ; do
+      $iptablesCommand -P INPUT  ACCEPT
+      $iptablesCommand -P OUTPUT ACCEPT
+
+      $iptablesCommand -F INPUT
+      $iptablesCommand -F OUTPUT
+      $iptablesCommand -A INPUT  -p tcp --dport 22 -j ACCEPT
+      $iptablesCommand -A OUTPUT -p tcp --sport 22 -j ACCEPT
+   done
+
+elif [ "$1" == "remove" ] ; then
+   echo -e >&2 "\x1b[32mFirewall: allowing all traffic\x1b[0m"
+   for iptablesCommand in iptables ip6tables ; do
+      $iptablesCommand -F INPUT
+      $iptablesCommand -F OUTPUT
+   done
+
+elif [ "$1" == "show" ] ; then
+   for iptablesCommand in iptables ip6tables ; do
+      $iptablesCommand -L -vn || true
+   done
+
+elif [ "$1" == "block" -o "$1" == "unblock" ] ; then
+   if [ $# -lt 4 ] ; then
+      echo >&2 "Usage: $0 $1 client_ip server_ip server_port"
+      exit 1
+   fi
+
+   clientIP="$2"
+   serverIP="$3"
+   serverPort="$4"
+
+   if [[ "$clientIP" =~ ":" ]] ; then
+      iptablesCommand="ip6tables"
+   else
+      iptablesCommand="iptables"
+   fi
+
+   if [ "$1" == "block" ] ; then
+      echo -e >&2 "\x1b[33mFirewall: blocking client $clientIP <-> server $serverIP:$serverPort\x1b[0m"
+      $iptablesCommand -A INPUT  -s $serverIP -d $clientIP -p tcp --sport $serverPort -j DROP
+      $iptablesCommand -A OUTPUT -s $clientIP -d $serverIP -p tcp --dport $serverPort -j DROP
+   else
+      echo -e >&2 "\x1b[32mFirewall: unblocking client $clientIP <-> server $serverIP:$serverPort\x1b[0m"
+      $iptablesCommand -D INPUT  -s $serverIP -d $clientIP -p tcp --sport $serverPort -j DROP
+      $iptablesCommand -D OUTPUT -s $clientIP -d $serverIP -p tcp --dport $serverPort -j DROP
+   fi
+
+else
+   echo >&2 "Usage: Bad command $1!"
+   exit 1
+fi

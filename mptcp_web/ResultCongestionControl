@@ -1,0 +1,178 @@
+chmod AutoCreatedCongestionControl
+copy script to testbed
+scp AutoCreatedCongestionControl zhoufeng@gatekeeper.nntb.no:/home/zhoufeng/test/
+ssh zhoufeng@gatekeeper.nntb.no ./test/AutoCreatedCongestionControl
+CreateSummary - Version 4.4.0
+=============================
+
+Compression Level: 9
+Interactive Mode:  on
+
+Ready> --varnames=TimeStamp FromNodeIndex FromNode ToNodeIndex ToNode FromSite FromSiteIndex ToSite ToSiteIndex FromProvider FromProviderIndex ToProvider ToProviderIndex SndBufSize RcvBufSize CC CMT PathMgr NDiffPorts IPVersion ScalarFileNameBase VectorFileNameBase
+Ready> --resultsdirectory=test_name
+Ready> --values="1475731859 102 "boao.hu.nornet" 103 "kettwig.ude.nornet" "Hainan University" 88 "Universität Duisburg-Essen" 42 "CERNET" "80" "DFN" "30" 1024 1024 "cubia" "mptcp" "fullmesh" 1 4 "75d7fdc0a236a2ceb193cc6c8f01cbbe7f877516.sca.bz2" "75d7fdc0a236a2ceb193cc6c8f01cbbe7f877516.vec.bz2""
+Ready> --input=test_name/75d7fdc0a236a2ceb193cc6c8f01cbbe7f877516-active.sca.bz2
+Ready> --values="1475731859 102 "boao.hu.nornet" 103 "kettwig.ude.nornet" "Hainan University" 88 "Universität Duisburg-Essen" 42 "CERNET" "80" "DFN" "30" 1024 1024 "cubia" "mptcp" "fullmesh" 1 4 "75d7fdc0a236a2ceb193cc6c8f01cbbe7f877516.sca.bz2" "75d7fdc0a236a2ceb193cc6c8f01cbbe7f877516.vec.bz2""
+Ready> --input=test_name/75d7fdc0a236a2ceb193cc6c8f01cbbe7f877516-passive.sca.bz2
+Ready> --values="1475731859 102 "boao.hu.nornet" 103 "kettwig.ude.nornet" "Hainan University" 88 "Universität Duisburg-Essen" 42 "CERNET" "80" "Versatel" "31" 1024 1024 "cubia" "mptcp" "fullmesh" 1 4 "439cf2d4395beaefd59f29dd6d7e1ab3a4762694.sca.bz2" "439cf2d4395beaefd59f29dd6d7e1ab3a4762694.vec.bz2""
+Ready> --input=test_name/439cf2d4395beaefd59f29dd6d7e1ab3a4762694-active.sca.bz2
+Ready> --values="1475731859 102 "boao.hu.nornet" 103 "kettwig.ude.nornet" "Hainan University" 88 "Universität Duisburg-Essen" 42 "CERNET" "80" "Versatel" "31" 1024 1024 "cubia" "mptcp" "fullmesh" 1 4 "439cf2d4395beaefd59f29dd6d7e1ab3a4762694.sca.bz2" "439cf2d4395beaefd59f29dd6d7e1ab3a4762694.vec.bz2""
+Ready> --input=test_name/439cf2d4395beaefd59f29dd6d7e1ab3a4762694-passive.sca.bz2
+Ready> --values="1475731859 102 "boao.hu.nornet" 103 "kettwig.ude.nornet" "Hainan University" 88 "Universität Duisburg-Essen" 42 "CnUnicom" "81" "DFN" "30" 1024 1024 "cubia" "mptcp" "fullmesh" 1 4 "4ec9f05d42626a2da0c17e3df2baf8e97e4e3aa1.sca.bz2" "4ec9f05d42626a2da0c17e3df2baf8e97e4e3aa1.vec.bz2""
+Ready> --input=test_name/4ec9f05d42626a2da0c17e3df2baf8e97e4e3aa1-active.sca.bz2
+Ready> --values="1475731859 102 "boao.hu.nornet" 103 "kettwig.ude.nornet" "Hainan University" 88 "Universität Duisburg-Essen" 42 "CnUnicom" "81" "DFN" "30" 1024 1024 "cubia" "mptcp" "fullmesh" 1 4 "4ec9f05d42626a2da0c17e3df2baf8e97e4e3aa1.sca.bz2" "4ec9f05d42626a2da0c17e3df2baf8e97e4e3aa1.vec.bz2""
+Ready> --input=test_name/4ec9f05d42626a2da0c17e3df2baf8e97e4e3aa1-passive.sca.bz2
+Ready> --values="1475731859 102 "boao.hu.nornet" 103 "kettwig.ude.nornet" "Hainan University" 88 "Universität Duisburg-Essen" 42 "CnUnicom" "81" "Versatel" "31" 1024 1024 "cubia" "mptcp" "fullmesh" 1 4 "d8588700dbfa0b0f6ce15fd80ed368ee16403860.sca.bz2" "d8588700dbfa0b0f6ce15fd80ed368ee16403860.vec.bz2""
+Ready> --input=test_name/d8588700dbfa0b0f6ce15fd80ed368ee16403860-active.sca.bz2
+Ready> --values="1475731859 102 "boao.hu.nornet" 103 "kettwig.ude.nornet" "Hainan University" 88 "Universität Duisburg-Essen" 42 "CnUnicom" "81" "Versatel" "31" 1024 1024 "cubia" "mptcp" "fullmesh" 1 4 "d8588700dbfa0b0f6ce15fd80ed368ee16403860.sca.bz2" "d8588700dbfa0b0f6ce15fd80ed368ee16403860.vec.bz2""
+Ready> --input=test_name/d8588700dbfa0b0f6ce15fd80ed368ee16403860-passive.sca.bz2
+Ready> --values="1475662902 102 "boao.hu.nornet" 103 "kettwig.ude.nornet" "Hainan University" 88 "Universität Duisburg-Essen" 42 "CERNET" "80" "DFN" "30" 1024 1024 "cubia" "mptcp" "fullmesh" 1 4 "b7af2a122c21f95e447470df97ee70abd3695325.sca.bz2" "b7af2a122c21f95e447470df97ee70abd3695325.vec.bz2""
+Ready> --input=test_name/b7af2a122c21f95e447470df97ee70abd3695325-active.sca.bz2
+Ready> --values="1475662902 102 "boao.hu.nornet" 103 "kettwig.ude.nornet" "Hainan University" 88 "Universität Duisburg-Essen" 42 "CERNET" "80" "DFN" "30" 1024 1024 "cubia" "mptcp" "fullmesh" 1 4 "b7af2a122c21f95e447470df97ee70abd3695325.sca.bz2" "b7af2a122c21f95e447470df97ee70abd3695325.vec.bz2""
+Ready> --input=test_name/b7af2a122c21f95e447470df97ee70abd3695325-passive.sca.bz2
+Ready> --values="1475662902 102 "boao.hu.nornet" 103 "kettwig.ude.nornet" "Hainan University" 88 "Universität Duisburg-Essen" 42 "CERNET" "80" "Versatel" "31" 1024 1024 "cubia" "mptcp" "fullmesh" 1 4 "198ac5d7b1b30c54bef3c753f3da1670be1c781d.sca.bz2" "198ac5d7b1b30c54bef3c753f3da1670be1c781d.vec.bz2""
+Ready> --input=test_name/198ac5d7b1b30c54bef3c753f3da1670be1c781d-active.sca.bz2
+Ready> --values="1475662902 102 "boao.hu.nornet" 103 "kettwig.ude.nornet" "Hainan University" 88 "Universität Duisburg-Essen" 42 "CERNET" "80" "Versatel" "31" 1024 1024 "cubia" "mptcp" "fullmesh" 1 4 "198ac5d7b1b30c54bef3c753f3da1670be1c781d.sca.bz2" "198ac5d7b1b30c54bef3c753f3da1670be1c781d.vec.bz2""
+Ready> --input=test_name/198ac5d7b1b30c54bef3c753f3da1670be1c781d-passive.sca.bz2
+Ready> --values="1475662902 102 "boao.hu.nornet" 103 "kettwig.ude.nornet" "Hainan University" 88 "Universität Duisburg-Essen" 42 "CnUnicom" "81" "DFN" "30" 1024 1024 "cubia" "mptcp" "fullmesh" 1 4 "4e502ad3b2b7240c4a8b49b1f4b73eb2a30e44d6.sca.bz2" "4e502ad3b2b7240c4a8b49b1f4b73eb2a30e44d6.vec.bz2""
+Ready> --input=test_name/4e502ad3b2b7240c4a8b49b1f4b73eb2a30e44d6-active.sca.bz2
+Ready> --values="1475662902 102 "boao.hu.nornet" 103 "kettwig.ude.nornet" "Hainan University" 88 "Universität Duisburg-Essen" 42 "CnUnicom" "81" "DFN" "30" 1024 1024 "cubia" "mptcp" "fullmesh" 1 4 "4e502ad3b2b7240c4a8b49b1f4b73eb2a30e44d6.sca.bz2" "4e502ad3b2b7240c4a8b49b1f4b73eb2a30e44d6.vec.bz2""
+Ready> --input=test_name/4e502ad3b2b7240c4a8b49b1f4b73eb2a30e44d6-passive.sca.bz2
+Ready> --values="1475662902 102 "boao.hu.nornet" 103 "kettwig.ude.nornet" "Hainan University" 88 "Universität Duisburg-Essen" 42 "CnUnicom" "81" "Versatel" "31" 1024 1024 "cubia" "mptcp" "fullmesh" 1 4 "ac7f664524dd56bba9477945c1669c1bb82feee2.sca.bz2" "ac7f664524dd56bba9477945c1669c1bb82feee2.vec.bz2""
+Ready> --input=test_name/ac7f664524dd56bba9477945c1669c1bb82feee2-active.sca.bz2
+Ready> --values="1475662902 102 "boao.hu.nornet" 103 "kettwig.ude.nornet" "Hainan University" 88 "Universität Duisburg-Essen" 42 "CnUnicom" "81" "Versatel" "31" 1024 1024 "cubia" "mptcp" "fullmesh" 1 4 "ac7f664524dd56bba9477945c1669c1bb82feee2.sca.bz2" "ac7f664524dd56bba9477945c1669c1bb82feee2.vec.bz2""
+Ready> --input=test_name/ac7f664524dd56bba9477945c1669c1bb82feee2-passive.sca.bz2
+Ready> --values="1475662746 102 "boao.hu.nornet" 103 "kettwig.ude.nornet" "Hainan University" 88 "Universität Duisburg-Essen" 42 "CERNET" "80" "DFN" "30" 1024 1024 "cubia" "mptcp" "fullmesh" 1 4 "38ca89670ecd92e44906afd65f56e3ecc6c4de3a.sca.bz2" "38ca89670ecd92e44906afd65f56e3ecc6c4de3a.vec.bz2""
+Ready> --input=test_name/38ca89670ecd92e44906afd65f56e3ecc6c4de3a-active.sca.bz2
+Ready> --values="1475662746 102 "boao.hu.nornet" 103 "kettwig.ude.nornet" "Hainan University" 88 "Universität Duisburg-Essen" 42 "CERNET" "80" "DFN" "30" 1024 1024 "cubia" "mptcp" "fullmesh" 1 4 "38ca89670ecd92e44906afd65f56e3ecc6c4de3a.sca.bz2" "38ca89670ecd92e44906afd65f56e3ecc6c4de3a.vec.bz2""
+Ready> --input=test_name/38ca89670ecd92e44906afd65f56e3ecc6c4de3a-passive.sca.bz2
+Ready> --values="1475662746 102 "boao.hu.nornet" 103 "kettwig.ude.nornet" "Hainan University" 88 "Universität Duisburg-Essen" 42 "CERNET" "80" "Versatel" "31" 1024 1024 "cubia" "mptcp" "fullmesh" 1 4 "f4db3b1983477eb1d3eae3f4e34c05b4d2c51a25.sca.bz2" "f4db3b1983477eb1d3eae3f4e34c05b4d2c51a25.vec.bz2""
+Ready> --input=test_name/f4db3b1983477eb1d3eae3f4e34c05b4d2c51a25-active.sca.bz2
+Ready> --values="1475662746 102 "boao.hu.nornet" 103 "kettwig.ude.nornet" "Hainan University" 88 "Universität Duisburg-Essen" 42 "CERNET" "80" "Versatel" "31" 1024 1024 "cubia" "mptcp" "fullmesh" 1 4 "f4db3b1983477eb1d3eae3f4e34c05b4d2c51a25.sca.bz2" "f4db3b1983477eb1d3eae3f4e34c05b4d2c51a25.vec.bz2""
+Ready> --input=test_name/f4db3b1983477eb1d3eae3f4e34c05b4d2c51a25-passive.sca.bz2
+Ready> --values="1475662746 102 "boao.hu.nornet" 103 "kettwig.ude.nornet" "Hainan University" 88 "Universität Duisburg-Essen" 42 "CnUnicom" "81" "DFN" "30" 1024 1024 "cubia" "mptcp" "fullmesh" 1 4 "381463b2225ecdf09f0b48a72af9b430691858f2.sca.bz2" "381463b2225ecdf09f0b48a72af9b430691858f2.vec.bz2""
+Ready> --input=test_name/381463b2225ecdf09f0b48a72af9b430691858f2-active.sca.bz2
+Ready> --values="1475662746 102 "boao.hu.nornet" 103 "kettwig.ude.nornet" "Hainan University" 88 "Universität Duisburg-Essen" 42 "CnUnicom" "81" "DFN" "30" 1024 1024 "cubia" "mptcp" "fullmesh" 1 4 "381463b2225ecdf09f0b48a72af9b430691858f2.sca.bz2" "381463b2225ecdf09f0b48a72af9b430691858f2.vec.bz2""
+Ready> --input=test_name/381463b2225ecdf09f0b48a72af9b430691858f2-passive.sca.bz2
+Ready> --values="1475662746 102 "boao.hu.nornet" 103 "kettwig.ude.nornet" "Hainan University" 88 "Universität Duisburg-Essen" 42 "CnUnicom" "81" "Versatel" "31" 1024 1024 "cubia" "mptcp" "fullmesh" 1 4 "1c0916ce73c96fce0b878498eec6117464ac1ff7.sca.bz2" "1c0916ce73c96fce0b878498eec6117464ac1ff7.vec.bz2""
+Ready> --input=test_name/1c0916ce73c96fce0b878498eec6117464ac1ff7-active.sca.bz2
+Ready> --values="1475662746 102 "boao.hu.nornet" 103 "kettwig.ude.nornet" "Hainan University" 88 "Universität Duisburg-Essen" 42 "CnUnicom" "81" "Versatel" "31" 1024 1024 "cubia" "mptcp" "fullmesh" 1 4 "1c0916ce73c96fce0b878498eec6117464ac1ff7.sca.bz2" "1c0916ce73c96fce0b878498eec6117464ac1ff7.vec.bz2""
+Ready> --input=test_name/1c0916ce73c96fce0b878498eec6117464ac1ff7-passive.sca.bz2
+Ready> --values="1475662533 102 "boao.hu.nornet" 103 "kettwig.ude.nornet" "Hainan University" 88 "Universität Duisburg-Essen" 42 "CERNET" "80" "DFN" "30" 1024 1024 "cubia" "mptcp" "fullmesh" 1 4 "7262ad2d903df279fed6dba02a34f27fbf4ab769.sca.bz2" "7262ad2d903df279fed6dba02a34f27fbf4ab769.vec.bz2""
+Ready> --input=test_name/7262ad2d903df279fed6dba02a34f27fbf4ab769-active.sca.bz2
+Ready> --values="1475662533 102 "boao.hu.nornet" 103 "kettwig.ude.nornet" "Hainan University" 88 "Universität Duisburg-Essen" 42 "CERNET" "80" "DFN" "30" 1024 1024 "cubia" "mptcp" "fullmesh" 1 4 "7262ad2d903df279fed6dba02a34f27fbf4ab769.sca.bz2" "7262ad2d903df279fed6dba02a34f27fbf4ab769.vec.bz2""
+Ready> --input=test_name/7262ad2d903df279fed6dba02a34f27fbf4ab769-passive.sca.bz2
+Ready> --values="1475662533 102 "boao.hu.nornet" 103 "kettwig.ude.nornet" "Hainan University" 88 "Universität Duisburg-Essen" 42 "CERNET" "80" "Versatel" "31" 1024 1024 "cubia" "mptcp" "fullmesh" 1 4 "7604f5e653f5a8d95d772924dbb67342769f17a9.sca.bz2" "7604f5e653f5a8d95d772924dbb67342769f17a9.vec.bz2""
+Ready> --input=test_name/7604f5e653f5a8d95d772924dbb67342769f17a9-active.sca.bz2
+Ready> --values="1475662533 102 "boao.hu.nornet" 103 "kettwig.ude.nornet" "Hainan University" 88 "Universität Duisburg-Essen" 42 "CERNET" "80" "Versatel" "31" 1024 1024 "cubia" "mptcp" "fullmesh" 1 4 "7604f5e653f5a8d95d772924dbb67342769f17a9.sca.bz2" "7604f5e653f5a8d95d772924dbb67342769f17a9.vec.bz2""
+Ready> --input=test_name/7604f5e653f5a8d95d772924dbb67342769f17a9-passive.sca.bz2
+Ready> --values="1475662533 102 "boao.hu.nornet" 103 "kettwig.ude.nornet" "Hainan University" 88 "Universität Duisburg-Essen" 42 "CnUnicom" "81" "DFN" "30" 1024 1024 "cubia" "mptcp" "fullmesh" 1 4 "0be1245318ac3a14fc8236f06d8668e30ecef224.sca.bz2" "0be1245318ac3a14fc8236f06d8668e30ecef224.vec.bz2""
+Ready> --input=test_name/0be1245318ac3a14fc8236f06d8668e30ecef224-active.sca.bz2
+Ready> --values="1475662533 102 "boao.hu.nornet" 103 "kettwig.ude.nornet" "Hainan University" 88 "Universität Duisburg-Essen" 42 "CnUnicom" "81" "DFN" "30" 1024 1024 "cubia" "mptcp" "fullmesh" 1 4 "0be1245318ac3a14fc8236f06d8668e30ecef224.sca.bz2" "0be1245318ac3a14fc8236f06d8668e30ecef224.vec.bz2""
+Ready> --input=test_name/0be1245318ac3a14fc8236f06d8668e30ecef224-passive.sca.bz2
+Ready> --values="1475662533 102 "boao.hu.nornet" 103 "kettwig.ude.nornet" "Hainan University" 88 "Universität Duisburg-Essen" 42 "CnUnicom" "81" "Versatel" "31" 1024 1024 "cubia" "mptcp" "fullmesh" 1 4 "c3562879ab1df2d46ece93c00bd8b235a6ea65be.sca.bz2" "c3562879ab1df2d46ece93c00bd8b235a6ea65be.vec.bz2""
+Ready> --input=test_name/c3562879ab1df2d46ece93c00bd8b235a6ea65be-active.sca.bz2
+Ready> --values="1475662533 102 "boao.hu.nornet" 103 "kettwig.ude.nornet" "Hainan University" 88 "Universität Duisburg-Essen" 42 "CnUnicom" "81" "Versatel" "31" 1024 1024 "cubia" "mptcp" "fullmesh" 1 4 "c3562879ab1df2d46ece93c00bd8b235a6ea65be.sca.bz2" "c3562879ab1df2d46ece93c00bd8b235a6ea65be.vec.bz2""
+Ready> --input=test_name/c3562879ab1df2d46ece93c00bd8b235a6ea65be-passive.sca.bz2
+Ready> 
+
+Writing scalar files...
+Wrote 0 lines into 0 files
+[32m2016-10-06T07:30:45: Reading constants from /etc/nornet/nornetapi-constants ...[0m
+[32m2016-10-06T07:30:45: Reading configuration from /etc/nornet/nornetapi-config ...[0m
+[32m2016-10-06T07:30:45: Logging into PLC dummy@simula.nornet/10.1.1.2 ...[0m
+[32m2016-10-06T07:30:46: Fetching NorNet site list ...[0m
+[32m2016-10-06T07:30:46: Fetching NorNet node list ...[0m
+[34;1m###### Stage 1: Preparations ######[0m
+[34;1m###### Stage 2: Starting passive side ######[0m
+[33m >Initialise passive side, next is cmdLine< [0m
+[34mhu_zhoufeng@boao.hu.nornet> [33mpkill netperfmeter ; rm -rf test_name ; mkdir test_name ; ( nohup netperfmeter 10222 -local=[0.0.0.0] -rcvbuf=16000000 -sndbuf=16000000 -verbosity=0 -pathmgr=fullmesh >>test_name/NetPerfMeter-boao.hu.nornet.log 2>&1 & ) ; ( nohup netperfmeter 10722 -local=[::] -rcvbuf=16000000 -sndbuf=16000000 -verbosity=0 -pathmgr=fullmesh >>test_name/NetPerfMeter-boao.hu.nornet.log 2>&1 & ) ; ( nohup netperfmeter 11022 -local=[10.80.88.169] -rcvbuf=16000000 -sndbuf=16000000 -verbosity=0 -pathmgr=fullmesh >>test_name/NetPerfMeter-boao.hu.nornet.log 2>&1 & ) ; ( nohup netperfmeter 11522 -local=[2001:700:4100:5058::a9:66] -rcvbuf=16000000 -sndbuf=16000000 -verbosity=0 -pathmgr=fullmesh >>test_name/NetPerfMeter-boao.hu.nornet.log 2>&1 & ) ; ( nohup netperfmeter 11032 -local=[10.81.88.169] -rcvbuf=16000000 -sndbuf=16000000 -verbosity=0 -pathmgr=fullmesh >>test_name/NetPerfMeter-boao.hu.nornet.log 2>&1 & ) ; ( nohup netperfmeter 11532 -local=[2001:700:4100:5158::a9:66] -rcvbuf=16000000 -sndbuf=16000000 -verbosity=0 -pathmgr=fullmesh >>test_name/NetPerfMeter-boao.hu.nornet.log 2>&1 & )[0m
+[33m >Initialise passive side, next is cmdLine< [0m
+[34mhu_zhoufeng@kettwig.ude.nornet> [33mpkill netperfmeter ; rm -rf test_name ; mkdir test_name ; ( nohup netperfmeter 10222 -local=[0.0.0.0] -rcvbuf=16000000 -sndbuf=16000000 -verbosity=0 -pathmgr=fullmesh >>test_name/NetPerfMeter-kettwig.ude.nornet.log 2>&1 & ) ; ( nohup netperfmeter 10722 -local=[::] -rcvbuf=16000000 -sndbuf=16000000 -verbosity=0 -pathmgr=fullmesh >>test_name/NetPerfMeter-kettwig.ude.nornet.log 2>&1 & ) ; ( nohup netperfmeter 10522 -local=[10.30.42.150] -rcvbuf=16000000 -sndbuf=16000000 -verbosity=0 -pathmgr=fullmesh >>test_name/NetPerfMeter-kettwig.ude.nornet.log 2>&1 & ) ; ( nohup netperfmeter 11022 -local=[2001:700:4100:1e2a::96:67] -rcvbuf=16000000 -sndbuf=16000000 -verbosity=0 -pathmgr=fullmesh >>test_name/NetPerfMeter-kettwig.ude.nornet.log 2>&1 & ) ; ( nohup netperfmeter 10532 -local=[10.31.42.150] -rcvbuf=16000000 -sndbuf=16000000 -verbosity=0 -pathmgr=fullmesh >>test_name/NetPerfMeter-kettwig.ude.nornet.log 2>&1 & ) ; ( nohup netperfmeter 11032 -local=[2001:700:4100:1f2a::96:67] -rcvbuf=16000000 -sndbuf=16000000 -verbosity=0 -pathmgr=fullmesh >>test_name/NetPerfMeter-kettwig.ude.nornet.log 2>&1 & )[0m
+[34;1m###### Stage 3: Running measurements ######[0m
+boao.hu.nornet/CERNET -> kettwig.ude.nornet/DFN over IPv4
+boao.hu.nornet/CERNET -> kettwig.ude.nornet/Versatel over IPv4
+boao.hu.nornet/CnUnicom -> kettwig.ude.nornet/DFN over IPv4
+boao.hu.nornet/CnUnicom -> kettwig.ude.nornet/Versatel over IPv4
+###### PARALLEL ######
+====== Run 1 of 4 ======
+[34mhu_zhoufeng@boao.hu.nornet> [33mmkdir -p test_name && \
+( sudo ping -n -c60 -I 10.80.88.169 10.30.42.150>test_name/75d7fdc0a236a2ceb193cc6c8f01cbbe7f877516.data & ) && \
+netperfmeter [10.30.42.150]:10222 -local=[0.0.0.0] -scalar=test_name/75d7fdc0a236a2ceb193cc6c8f01cbbe7f877516.sca.bz2 -vector=test_name/75d7fdc0a236a2ceb193cc6c8f01cbbe7f877516.vec.bz2 \
+	-runtime=60 -verbosity=1 -tcp const0:const1400:const0:const0:sndbuf=1024:rcvbuf=1024:cc=cubia:pathmgr=fullmesh:ndiffports=1:cmt=mptcp[0m
+###### PARALLEL ######
+====== Run 2 of 4 ======
+[34mhu_zhoufeng@boao.hu.nornet> [33mmkdir -p test_name && \
+( sudo ping -n -c60 -I 10.80.88.169 10.31.42.150>test_name/439cf2d4395beaefd59f29dd6d7e1ab3a4762694.data & ) && \
+netperfmeter [10.31.42.150]:10222 -local=[0.0.0.0] -scalar=test_name/439cf2d4395beaefd59f29dd6d7e1ab3a4762694.sca.bz2 -vector=test_name/439cf2d4395beaefd59f29dd6d7e1ab3a4762694.vec.bz2 \
+	-runtime=60 -verbosity=1 -tcp const0:const1400:const0:const0:sndbuf=1024:rcvbuf=1024:cc=cubia:pathmgr=fullmesh:ndiffports=1:cmt=mptcp[0m
+###### PARALLEL ######
+====== Run 3 of 4 ======
+[34mhu_zhoufeng@boao.hu.nornet> [33mmkdir -p test_name && \
+( sudo ping -n -c60 -I 10.81.88.169 10.30.42.150>test_name/4ec9f05d42626a2da0c17e3df2baf8e97e4e3aa1.data & ) && \
+netperfmeter [10.30.42.150]:10222 -local=[0.0.0.0] -scalar=test_name/4ec9f05d42626a2da0c17e3df2baf8e97e4e3aa1.sca.bz2 -vector=test_name/4ec9f05d42626a2da0c17e3df2baf8e97e4e3aa1.vec.bz2 \
+	-runtime=60 -verbosity=1 -tcp const0:const1400:const0:const0:sndbuf=1024:rcvbuf=1024:cc=cubia:pathmgr=fullmesh:ndiffports=1:cmt=mptcp[0m
+###### PARALLEL ######
+====== Run 4 of 4 ======
+[34mhu_zhoufeng@boao.hu.nornet> [33mmkdir -p test_name && \
+( sudo ping -n -c60 -I 10.81.88.169 10.31.42.150>test_name/d8588700dbfa0b0f6ce15fd80ed368ee16403860.data & ) && \
+netperfmeter [10.31.42.150]:10222 -local=[0.0.0.0] -scalar=test_name/d8588700dbfa0b0f6ce15fd80ed368ee16403860.sca.bz2 -vector=test_name/d8588700dbfa0b0f6ce15fd80ed368ee16403860.vec.bz2 \
+	-runtime=60 -verbosity=1 -tcp const0:const1400:const0:const0:sndbuf=1024:rcvbuf=1024:cc=cubia:pathmgr=fullmesh:ndiffports=1:cmt=mptcp[0m
+[34;1m###### Stage 4: Results Collection ######[0m
+[33m['/usr/bin/rsync', '-e', 'ssh -oStrictHostKeyChecking=no -4 -i /home/zhoufeng/.ssh/id_rsa', '-av', '-q', 'hu_zhoufeng@boao.hu.nornet:test_name/', 'test_name/'][0m
+[31;1m========== WARNING: result=255 ==========[0m
+[33m['/usr/bin/rsync', '-e', 'ssh -oStrictHostKeyChecking=no -4 -i /home/zhoufeng/.ssh/id_rsa', '-av', '-q', 'hu_zhoufeng@kettwig.ude.nornet:test_name/', 'test_name/'][0m
+[31;1m========== WARNING: result=255 ==========[0m
+[33mcat test_name/results.summary.new >test_name/results.summary.updated && if [ -e test_name/results.summary ] ; then grep -v ^--varnames= test_name/results.summary | grep -v ^--resultsdirectory= >>test_name/results.summary.updated ; fi && mv test_name/results.summary.updated test_name/results.summary[0m
+[33mcreatesummary xy -ignore-scalar-file-errors <test_name/results.summary[0m
+[34;1m###### Stage 5: Clean-up ######[0m
+[34mhu_zhoufeng@boao.hu.nornet> [33mpkill netperfmeter && hostname && cat test_name/NetPerfMeter-boao.hu.nornet.log[0m
+[34mhu_zhoufeng@kettwig.ude.nornet> [33mpkill netperfmeter && hostname && cat test_name/NetPerfMeter-kettwig.ude.nornet.log[0m
+exit
+ssh: Could not resolve hostname boao.hu.nornet: Name or service not known
+ssh: Could not resolve hostname kettwig.ude.nornet: Name or service not known
+ssh: Could not resolve hostname boao.hu.nornet: Name or service not known
+ssh: Could not resolve hostname boao.hu.nornet: Name or service not known
+ssh: Could not resolve hostname boao.hu.nornet: Name or service not known
+ssh: Could not resolve hostname boao.hu.nornet: Name or service not known
+ssh: Could not resolve hostname boao.hu.nornet: Name or service not known
+rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
+rsync error: unexplained error (code 255) at io.c(226) [Receiver=3.1.1]
+ssh: Could not resolve hostname kettwig.ude.nornet: Name or service not known
+rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
+rsync error: unexplained error (code 255) at io.c(226) [Receiver=3.1.1]
+ERROR: Unable to open input file <test_name/75d7fdc0a236a2ceb193cc6c8f01cbbe7f877516-active.sca.bz2>!
+ERROR: Unable to open input file <test_name/75d7fdc0a236a2ceb193cc6c8f01cbbe7f877516-passive.sca.bz2>!
+ERROR: Unable to open input file <test_name/439cf2d4395beaefd59f29dd6d7e1ab3a4762694-active.sca.bz2>!
+ERROR: Unable to open input file <test_name/439cf2d4395beaefd59f29dd6d7e1ab3a4762694-passive.sca.bz2>!
+ERROR: Unable to open input file <test_name/4ec9f05d42626a2da0c17e3df2baf8e97e4e3aa1-active.sca.bz2>!
+ERROR: Unable to open input file <test_name/4ec9f05d42626a2da0c17e3df2baf8e97e4e3aa1-passive.sca.bz2>!
+ERROR: Unable to open input file <test_name/d8588700dbfa0b0f6ce15fd80ed368ee16403860-active.sca.bz2>!
+ERROR: Unable to open input file <test_name/d8588700dbfa0b0f6ce15fd80ed368ee16403860-passive.sca.bz2>!
+ERROR: Unable to open input file <test_name/b7af2a122c21f95e447470df97ee70abd3695325-active.sca.bz2>!
+ERROR: Unable to open input file <test_name/b7af2a122c21f95e447470df97ee70abd3695325-passive.sca.bz2>!
+ERROR: Unable to open input file <test_name/198ac5d7b1b30c54bef3c753f3da1670be1c781d-active.sca.bz2>!
+ERROR: Unable to open input file <test_name/198ac5d7b1b30c54bef3c753f3da1670be1c781d-passive.sca.bz2>!
+ERROR: Unable to open input file <test_name/4e502ad3b2b7240c4a8b49b1f4b73eb2a30e44d6-active.sca.bz2>!
+ERROR: Unable to open input file <test_name/4e502ad3b2b7240c4a8b49b1f4b73eb2a30e44d6-passive.sca.bz2>!
+ERROR: Unable to open input file <test_name/ac7f664524dd56bba9477945c1669c1bb82feee2-active.sca.bz2>!
+ERROR: Unable to open input file <test_name/ac7f664524dd56bba9477945c1669c1bb82feee2-passive.sca.bz2>!
+ERROR: Unable to open input file <test_name/38ca89670ecd92e44906afd65f56e3ecc6c4de3a-active.sca.bz2>!
+ERROR: Unable to open input file <test_name/38ca89670ecd92e44906afd65f56e3ecc6c4de3a-passive.sca.bz2>!
+ERROR: Unable to open input file <test_name/f4db3b1983477eb1d3eae3f4e34c05b4d2c51a25-active.sca.bz2>!
+ERROR: Unable to open input file <test_name/f4db3b1983477eb1d3eae3f4e34c05b4d2c51a25-passive.sca.bz2>!
+ERROR: Unable to open input file <test_name/381463b2225ecdf09f0b48a72af9b430691858f2-active.sca.bz2>!
+ERROR: Unable to open input file <test_name/381463b2225ecdf09f0b48a72af9b430691858f2-passive.sca.bz2>!
+ERROR: Unable to open input file <test_name/1c0916ce73c96fce0b878498eec6117464ac1ff7-active.sca.bz2>!
+ERROR: Unable to open input file <test_name/1c0916ce73c96fce0b878498eec6117464ac1ff7-passive.sca.bz2>!
+ERROR: Unable to open input file <test_name/7262ad2d903df279fed6dba02a34f27fbf4ab769-active.sca.bz2>!
+ERROR: Unable to open input file <test_name/7262ad2d903df279fed6dba02a34f27fbf4ab769-passive.sca.bz2>!
+ERROR: Unable to open input file <test_name/7604f5e653f5a8d95d772924dbb67342769f17a9-active.sca.bz2>!
+ERROR: Unable to open input file <test_name/7604f5e653f5a8d95d772924dbb67342769f17a9-passive.sca.bz2>!
+ERROR: Unable to open input file <test_name/0be1245318ac3a14fc8236f06d8668e30ecef224-active.sca.bz2>!
+ERROR: Unable to open input file <test_name/0be1245318ac3a14fc8236f06d8668e30ecef224-passive.sca.bz2>!
+ERROR: Unable to open input file <test_name/c3562879ab1df2d46ece93c00bd8b235a6ea65be-active.sca.bz2>!
+ERROR: Unable to open input file <test_name/c3562879ab1df2d46ece93c00bd8b235a6ea65be-passive.sca.bz2>!
+WARNING: Not all scalar files have been read -> continuing!
+ssh: Could not resolve hostname boao.hu.nornet: Name or service not known
+ssh: Could not resolve hostname kettwig.ude.nornet: Name or service not known

@@ -1,0 +1,316 @@
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+#
+# Experiment Script
+# Copyright (C) 2016 by Thomas Dreibholz
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either ipVersion 3 of the License, or
+# (at your option) any later ipVersion.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+# Contact: dreibh@simula.no
+
+import sys
+import subprocess
+import time
+import datetime
+import hashlib
+
+# NorNet
+from NorNetSiteSetup         import *;
+from NorNetTools             import *;
+from NorNetAPI               import *;
+from NorNetExperimentToolbox import *;
+
+MeasurementName = 'Results-Dingo-mapo.korea_ipv6-1run'
+SliceName       = 'hu_chengxi'
+Runtime         = 200
+PortBase        = 13252
+SSHPrivateKey   = "/home/handover/.ssh/id_rsa"   # !!! Set your key here! !!!
+# Local node is always the machine this script is running on!
+# NOTE: This information is read from /etc/nornet/nornetapi-config!
+RemoteNodeNames = [
+#    "skreia.hig.nornet"
+#   "frogner.simula.nornet",
+#   "klaraelven.kau.nornet",
+#   "reeperbahn.haw.nornet"
+#   "watson.ku.nornet",
+    "mapo.korea.nornet"
+#   "betzenberg.tukl.nornet",
+#   "wanlvyuan.hkc.nornet"
+#   "isfjorden.unis.nornet",
+#   "sverresborg.uib.nornet",
+#   "kongsbakken.uit.nornet",
+#   "bygdoey.simula.nornet"
+]
+
+
+# ###### Get variable names #################################################
+def getVariableNames():
+   return 'TimeStamp ' + \
+          'FromNodeIndex FromNode ToNodeIndex ToNode ' + \
+          'FromSite FromSiteIndex ToSite ToSiteIndex ' + \
+          'FromProvider FromProviderIndex ToProvider ToProviderIndex ' + \
+          'SndBufSize RcvBufSize CC CMT PathMgr NDiffPorts IPVersion ' + \
+          'ScalarFileNameBase VectorFileNameBase'
+
+
+# ###### Get variable settings ##############################################
+def getVariableSettings(now, localSite, localNode, localProvider, remoteSite, remoteNode, remoteProvider,
+                        ipVersion, sndBufSize, rcvBufSize, cc, cmt, pathMgr, nDiffPorts,
+                        scalarFileNameBase = None, vectorFileNameBase = None, hashResult = False):
+   
+   variableSettings = \
+      str(now)                      + ' '  + \
+      str(localNode['node_index'])  + ' '  + \
+      '"' + localNode['node_name']  + '" '  + \
+      str(remoteNode['node_index']) + ' '  + \
+      '"' + remoteNode['node_name'] + '" '  + \
+      '"' + localSite['site_utf8']  + '" '  + \
+      str(localSite['site_index'])  + ' '  + \
+      '"' + remoteSite['site_utf8'] + '" '  + \
+      str(remoteSite['site_index']) + ' '  + \
+      '"' + localProvider['provider_short_name']           + '" ' + \
+      '"' + str(localProvider['provider_index'])  + '" ' + \
+      '"' + remoteProvider['provider_short_name']          + '" ' + \
+      '"' + str(remoteProvider['provider_index']) + '" ' + \
+      str(sndBufSize) + ' ' + str(rcvBufSize) + ' ' + \
+      '"' + str(cc)       + '" ' + \
+      '"' + str(cmt)      + '" ' + \
+      '"' + str(pathMgr)  + '" ' + \
+      str(nDiffPorts) + ' '  + \
+      str(ipVersion)
+
+   if hashResult == True:
+      fp = hashlib.sha1()
+      fp.update(variableSettings.encode('utf-8'))
+      return fp.hexdigest()
+   else:
+      if scalarFileNameBase != None:
+         variableSettings = variableSettings + ' "' + scalarFileNameBase + '"'
+      if vectorFileNameBase != None:
+         variableSettings = variableSettings + ' "' + vectorFileNameBase + '"'
+      return variableSettings
+
+
+# ###### Get scalar file name ###############################################
+def getScalarName(now, localSite, localNode, localProvider, remoteSite, remoteNode, remoteProvider,
+                  ipVersion, sndBufSize, rcvBufSize, cc, cmt, pathMgr, nDiffPorts):
+   return MeasurementName + '/' + \
+      getVariableSettings(now, localSite, localNode, localProvider, remoteSite, remoteNode, remoteProvider,
+                          ipVersion, sndBufSize, rcvBufSize, cc, cmt, pathMgr, nDiffPorts,
+                          None, None, True) + \
+      '.sca.bz2'
+
+
+# ###### Run the measurement ################################################
+def runMeasurement(now, slice, summaryFile,
+                   localSite, localNode, localProvider, remoteSite, remoteNode, remoteProvider,
+                   ipVersion, sndBufSize, rcvBufSize, cc, cmt, pathMgr, nDiffPorts):
+
+   localAddress  = makeAddress(localSite,  localNode,  localProvider,  ipVersion, slice)
+   remoteAddress = makeAddress(remoteSite, remoteNode, remoteProvider, ipVersion, slice)
+   remotePort    = makePort(PortBase, remoteSite, remoteNode, remoteProvider, ipVersion, slice)
+
+   # ------ Get parameter configuration -------------------
+   scalarFileName = getScalarName(now, localSite, localNode, localProvider, remoteSite, remoteNode, remoteProvider,
+                                  ipVersion, sndBufSize, rcvBufSize, cc, cmt, pathMgr, nDiffPorts)
+   vectorFileName = scalarFileName.replace('.sca.bz2','.vec.bz2')
+
+   variables      = getVariableSettings(now, localSite, localNode, localProvider, remoteSite, remoteNode, remoteProvider,
+                                        ipVersion, sndBufSize, rcvBufSize, cc, cmt, pathMgr, nDiffPorts,
+                                        scalarFileName, vectorFileName)
+
+   activeScalarFileName  = scalarFileName.replace('.sca.bz2', '-active.sca.bz2')
+   passiveScalarFileName = scalarFileName.replace('.sca.bz2', '-passive.sca.bz2')
+
+   summaryFile.write('--values="' + variables + '"\n')
+   summaryFile.write('--input=' + activeScalarFileName + '\n')
+   summaryFile.write('--values="' + variables + '"\n')
+   summaryFile.write('--input=' + passiveScalarFileName + '\n')
+
+   # ------ Run NetPerfMeter ------------------------------
+   if rcvBufSize == -1:
+      rcvBufSize = 0
+
+   cmdLine = 'mkdir -p ' + MeasurementName + ' && ' + \
+             'netperfmeter [' + str(remoteAddress) + ']:' + str(remotePort) + ' ' + \
+             '-local=[' + str(localAddress) + '] ' + \
+             '-scalar=' + scalarFileName + ' ' + \
+             '-vector=' + vectorFileName + ' ' + \
+             '-verbosity=1 ' + \
+             '-tcp const0:const1400:const0:const0:sndbuf=' + str(sndBufSize) + \
+             ':rcvbuf=' + str(rcvBufSize) + \
+             ':cc=' + cc + \
+             ':pathmgr=' + pathMgr + \
+             ':ndiffports=' + str(nDiffPorts) + \
+             ':cmt=' + cmt + ' ' + \
+             '-runtime=' + str(Runtime)
+
+   # Port for blocking in firewall. There is difference between TCP and MPTCP socket!
+   if cmt != 'off':
+      serverPort = remotePort - 1   # NetPerfMeter: MPTCP port is given port *minus* 1!
+   else:
+      serverPort = remotePort
+
+
+   # Initial firewall configuration
+   runLocal('./Experiment-Firewall-Setup init')
+
+   # Start NetPerfMeter locally.
+   process = runLocal(cmdLine, True)
+   if process != None:
+      # Firewall configuration after client`s start (e.g. handover test)
+      time.sleep(100)
+      runLocal('./Experiment-Firewall-Setup block ' + str(localAddress) + ' ' + str(remoteAddress) + ' ' + str(serverPort))
+      time.sleep(60)
+      runLocal('./Experiment-Firewall-Setup unblock ' + str(localAddress) + ' ' + str(remoteAddress) + ' ' + str(serverPort))
+      process.wait()
+
+   # Remove firewall configuration
+   runLocal('./Experiment-Firewall-Setup remove')
+
+
+
+# ###########################################################################
+# #### Main program                                                      ####
+# ###########################################################################
+
+# ====== Get configuration ==================================================
+loginToPLC()
+fullSiteList = fetchNorNetSiteList()
+fillNodeList = fetchNorNetNodeList()
+
+ExperimentNodes = []
+
+localNode = makePseudoNode(fullSiteList, getLocalNodeHostname(), getLocalNodeIndex())
+if localNode == None:
+   error('Node not found: ' + getLocalNodeHostname(), ', node index ' + str(getLocalNodeIndex()))
+   sys.exit(0)
+
+remoteNodes = []
+for remoteName in RemoteNodeNames:
+    remoteNode = fetchNorNetNode(remoteName)
+    if remoteNode == None:
+        error('Node not found: ' + remoteName)
+    remoteNodes.append(remoteNode)
+    ExperimentNodes.append(remoteNode)
+
+Slice = fetchNorNetSlice(SliceName)
+if Slice == None:
+   error('Slice not found: ' + SliceName)
+
+
+# ====== Test or install NetPerfMeter from sources? =========================
+if len(sys.argv) != 1:
+   if sys.argv[1] == 'test':
+      testCustomNetPerfMeter(SSHPrivateKey, ExperimentNodes, Slice)
+   elif sys.argv[1] == 'init':
+      installCustomNetPerfMeter(SSHPrivateKey, ExperimentNodes, Slice)
+   else:
+      error('Unknown command: ' + sys.argv[1])
+   sys.exit(0)
+
+
+# ====== Prepare ============================================================
+print('\x1b[34;1m###### Stage 1: Preparations ######\x1b[0m')
+
+# ------ Prepare results output ---------------------------
+try:
+   os.mkdir(MeasurementName)
+except:
+   pass
+fullSummaryFileName = MeasurementName + '/results.summary'
+summaryFileName     = MeasurementName + '/results.summary.new'
+try:
+   os.remove(summaryFileName)
+except:
+   pass
+summaryFile = codecs.open(summaryFileName, 'w+', 'utf-8')
+summaryFile.write('--varnames=' + getVariableNames() + '\n')
+summaryFile.write('--resultsdirectory=' + MeasurementName + '\n')
+
+
+# ====== Start passive side ==============================================
+print('\x1b[34;1m###### Stage 2: Starting passive side') ######\x1b[0m'
+
+# Initialise MPTCP
+runLocal('./Experiment-MPTCP-Setup init')
+
+pathMgr = 'fullmesh'
+
+processes = []
+for node in ExperimentNodes:
+  newProcess = startServer(fullSiteList, PortBase, MeasurementName,
+                           SSHPrivateKey, node, Slice, pathMgr)
+  if newProcess != None:
+     processes.append(newProcess)
+for process in processes:
+  process.wait()
+time.sleep(10)
+
+
+# ====== Create runs ========================================================
+print('\x1b[34;1m###### Stage 3: Running measurements ######\x1b[0m')
+localSite          = getNorNetSiteOfNode(fullSiteList, localNode)
+localProviderList  = getNorNetProvidersForSite(localSite)
+
+for repetition in range(1,2):
+   now = int(time.time())+repetition   # <<-- NOTE: "now" *must* be updated in each run (to ensure distinct file names)!
+
+   for remoteNode in remoteNodes:   
+      remoteSite         = getNorNetSiteOfNode(fullSiteList, remoteNode)
+      remoteProviderList = getNorNetProvidersForSite(remoteSite)
+
+      for localProviderIndex in localProviderList:
+         localProvider = localProviderList[localProviderIndex]
+         for remoteProviderIndex in remoteProviderList:
+            remoteProvider = remoteProviderList[remoteProviderIndex]
+            for ipVersion in [ 4,6 ]:
+
+               print(localNode['node_utf8'] + '/' + localProvider['provider_short_name'] + \
+                     ' -> ' + remoteNode['node_utf8'] + '/' + remoteProvider['provider_short_name'] + \
+                     ' over IPv' + str(ipVersion))
+
+               for cc in [ 'cubic' ]: 
+                  for cmt in [ 'off', 'mptcp' ]:
+                     sndBufSize = 0
+                     rcvBufSize = sndBufSize
+                     for pathMgr in [ 'fullmesh' ]:
+                        nDiffPorts = 2
+                        runMeasurement(now, Slice, summaryFile,
+                                       localSite, localNode, localProvider, remoteSite, remoteNode, remoteProvider,
+                                       ipVersion, sndBufSize, rcvBufSize, cc, cmt, pathMgr, nDiffPorts)
+
+
+# ====== Collect results ====================================================
+print('\x1b[34;1m###### Stage 4: Results Collection ######\x1b[0m')
+summaryFile.close()
+for node in ExperimentNodes:
+   copyFromNodeOverRSync(SSHPrivateKey, node, Slice, MeasurementName)
+runLocal('cat ' + summaryFileName + ' >' + fullSummaryFileName + '.updated && if [ -e ' + fullSummaryFileName + ' ] ; then grep -v ^--varnames= ' + fullSummaryFileName + ' | grep -v ^--resultsdirectory= >>' + fullSummaryFileName + '.updated ; fi && mv ' + fullSummaryFileName + '.updated ' + fullSummaryFileName)
+
+# Finally, run the "createsummary" program.
+runLocal('createsummary xy -ignore-scalar-file-errors <' + MeasurementName + '/results.summary')
+
+
+# ====== Clean up ===========================================================
+print('\x1b[34;1m###### Stage 5: Clean-up ######\x1b[0m')
+processes = []
+for node in ExperimentNodes:
+   newProcess = stopServer(MeasurementName, SSHPrivateKey, node, Slice)
+   if newProcess != None:
+      processes.append(newProcess)
+for process in processes:
+   process.wait()
+
+runLocal('./Experiment-MPTCP-Setup cleanup')

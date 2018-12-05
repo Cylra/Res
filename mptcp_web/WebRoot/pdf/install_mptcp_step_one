@@ -1,0 +1,39 @@
+#!/bin/bash
+
+##this script is used to install the mptcp protocal automatically ! when you run it, please use root access . 
+##this script can just work well on ubuntu14.04.2 .
+
+#get a key from mptcp community
+wget -q -O - http://multipath-tcp.org/mptcp.gpg.key | sudo apt-key add -;
+
+#type mptcp source in apt-source list
+echo "##mptcp-source" >> /etc/apt/sources.list;
+echo "deb http://multipath-tcp.org/repos/apt/debian trusty main" >> /etc/apt/sources.list;
+
+#update the source list , make sure it work well
+apt-get update && apt-get dist-upgrade;
+
+#install mptcp protocal
+apt-get install linux-mptcp;
+
+#check out if the mptcp has been installed
+#dmesg | grep -i mptcp;
+
+###Configure routing automatically
+cp ./mptcp_up /etc/network/if-up.d/;
+chmod +x /etc/network/if-up.d/mptcp_up;
+sh /etc/network/if-up.d/mptcp_up;
+
+cp ./mptcp_down /etc/network/if-post-down.d/;
+chmod +x /etc/network/if-post-down.d/mptcp_down;
+sh /etc/network/if-post-down.d/mptcp_down;
+
+echo "The installer need restart the system to continue"
+echo "Press Y to restart, press N to cancel"
+read -r YN
+if [ $YN = "Y" ]; then
+	reboot
+else
+	echo "Please restar yourself and run install_mptcp_step_two"
+fi
+exit 0; 
