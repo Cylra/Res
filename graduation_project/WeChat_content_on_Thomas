@@ -1,0 +1,103 @@
+2018年12月8日下午5-8点
+--------------------------------------
+匡汉宝
+Hi,Thomas,for deploying srs,I need three operating systems with 
+a graphical interface and direct access, 
+and I need permission to install the software. 
+These machines are available to me, for example,
+kongsbakken.uit.nornet,eina.hig.nornet and wanqun.hu.nornet.Thanks！
+
+--------------------------------------
+Thomas
+For the SRS experiments, you will get access to the following custom VMs:
+meilan.hu.nornet
+dingo.simula.nornet
+wombat.uia.nornet
+koala.ntnu.nornet
+wallaby.uib.nornet
+redback.hin.nornet
+
+On these VMs, you have full root access. That is, you can install an MPTCP kernel, etc..
+
+You can also use X11 in all VMs with "ssh -CX ...". 
+That is, you can use remote GUI programs. 
+However, X11 is latency-sensitive in addition to the need for sufficient bandwidth. 
+Trying to use GUI programs from Haikou on a VM in Europe will be very inconvenient.
+
+You can however directly connect an own PC to the NorNet Core switch in Haikou. 
+There, you can normally use all GUI programs, 
+e.g. a video client displaying streamed data from remote NorNet Core machines.
+
+--------------------------------------
+龙宇
+Hi,Thomas,for deploying web test platform（use java server pages）,
+I need java environment on gatekeeper.can i install it?
+
+--------------------------------------
+Thomas
+The gatekeeper is just for access and temporary data storage of the NorNet Core users.
+You can use the machine dingo.simula.nornet for the experiment. There, you can install Java, etc..
+
+--------------------------------------
+龙宇
+Can i access dingo.simula.nornet directly from my pc?
+
+--------------------------------------
+Thomas
+The 6 VMs are now ready. User name is "handover". Xing Zhou can give you the password.
+
+The password for the handover experiment VMs is "hoHU@NnTb!" (without quotes).
+
+The VMs are directly accessible inside NorNet Core only, for security reasons. 
+But it should be easily possible to patch an Ethernet port from the lab to the server room, 
+to get direct Ethernet connection to the NorNet Core switch. 
+When you are connected to the switch, 
+you have direct access to all NorNet Core systems at all sites.
+
+You can probably ask Fu Fa for such a connection.
+
+--------------------------------------
+龙宇
+you mean, kuang and i use the internet cable to connect 
+pc and the server room on the first floor.so we can direct access all sites.
+
+--------------------------------------
+Thomas
+Yes. Connect your PCs to this switch. Then, you can use IP addresses inside NorNet Core. 
+Then, you have direct IPv4 and IPv6 access to all other NorNet Core sites.
+
+So, you could set up SRS systems at different other NorNet Core sites, and stream to your PCs.
+
+There is an RADVD service running on the tunnelbox. 
+That is, once you connect a PC to the switch, 
+you automatically receive IPv6 addresses for both, CERNET and China Unicom. 
+For IPv4, you get a CERNET IPv4 address by DHCP. 
+DHCP does not support multiple IPv4 addresses. 
+You can however make a static configuration.
+
+See page 25 of this 
+presentation: https://www.simula.no/file/haikou2017-multipath-presentationpdf-0/download .
+
+2018年12月25日下午4-5点
+--------------------------------------
+匡汉宝
+Hi，Thomas.The 6 VM you give are only one ISP has ipv6, 
+the interface of docker0 does not have ipv6 address.is it?
+
+I saw in the /etc/network/interfaces that a network card eth0 is configured. 
+Others are not configured?
+
+--------------------------------------
+Thomas
+See the eth0 interface. This is the external one.
+
+eth0 has as many IP addresses as there are ISPs. 
+If there are 4 ISPs, there are 4 IPv4 and 4 IPv6 addresses.
+
+Note, use "ip" for viewing the addresses. "ifconfig" only shows one IPv4 address.
+
+ip -4 addr show dev eth0
+
+Multi-homing is handled by the tunnelbox. 
+It already has the IP routing rules configured. 
+So, no need to set up routing rules in NorNet Core VMs.
