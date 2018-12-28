@@ -58,5 +58,6 @@ public class GetResultAction extends HttpServlet
 		System.out.println("getResultAction completed");
 		bw.close();
 		br.close();
+		br2.close();
 	}
 }

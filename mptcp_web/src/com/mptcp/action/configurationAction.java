@@ -1,7 +1,7 @@
 package com.mptcp.action;
 /*
 处理从script.jsp页面获取的参数设置,参数无误就转入getScript.jsp
-进行处理并写入到脚本AutoCreatedCongestionControl里面
+进行处理并通过ConfigScript对象写入到脚本AutoCreatedCongestionControl里面
  */
 
 import java.io.IOException;

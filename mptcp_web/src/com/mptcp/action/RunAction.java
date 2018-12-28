@@ -36,7 +36,7 @@ public class RunAction extends HttpServlet
 		System.out.println("*run RunAction begin*");
 		
 		//String cmd = "./autoRun AutoCreatedCongestionControl";//.
-		String cmd = "ifconfig";
+		String cmd = "./autoRun_ly.sh";
 		Runtime runtime = Runtime.getRuntime();
 		
 
@@ -70,6 +70,7 @@ public class RunAction extends HttpServlet
 		
 		bw.close();
 		br.close();
+		br2.close();
 		System.out.println("*run RunAction End*");
 		
 	}
