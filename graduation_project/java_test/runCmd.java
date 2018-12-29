@@ -18,7 +18,7 @@ public class runCmd {
             //合并错误输出到标准输出,相当于: 2>&1
             pb.redirectErrorStream(true);
 
-            Process ps = pb.start();;// = Runtime.getRuntime().exec(cmd);
+            Process ps = pb.start();// = Runtime.getRuntime().exec(cmd);
             // ps.waitFor();
 
             BufferedReader br = new BufferedReader(new InputStreamReader(ps.getInputStream()));

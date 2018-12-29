@@ -39,8 +39,13 @@ public class RunAction extends HttpServlet
 		String cmd = "./autoRun_ly.sh";
 		Runtime runtime = Runtime.getRuntime();
 		
+		ProcessBuilder pb = new ProcessBuilder(cmd);
+        //设置shell命令执行的工作目录
+		pb.directory(new File(path));
+		//合并错误输出到标准输出
+		pb.redirectErrorStream(true);
 
-		Process p = runtime.exec(cmd, null, new File(path));
+		Process p = pb.start();//runtime.exec(cmd, null, new File(path));
 		
 		BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
 		
@@ -55,11 +60,15 @@ public class RunAction extends HttpServlet
 		while( (line = br.readLine()) != null)
 		{
 //			System.out.println(line);
+			//去掉脚本输出中的特殊字符
+			line = line.replaceAll(".?\\[\\d+m", "");
 			bw.write(line);
 			bw.newLine();
 			bw.flush();
 		}
 		
+		//无需再重复写入错误输出
+		/*
 		while( (line = br2.readLine()) != null)
 		{
 //			System.out.println(line);
@@ -67,7 +76,7 @@ public class RunAction extends HttpServlet
 			bw.newLine();
 			bw.flush();
 		}
-		
+		*/
 		bw.close();
 		br.close();
 		br2.close();
