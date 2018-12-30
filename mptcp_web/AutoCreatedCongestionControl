@@ -33,13 +33,13 @@ from NorNetAPI               import *;
 from NorNetExperimentToolbox import *;
 
 
-MeasurementName = 'buffer-run'
-SliceName       = 'hu_zhoufeng'
-Runtime         = 5
+MeasurementName = 'uia-uib'
+SliceName       = 'hu_yu'
+Runtime         = 30
 PortBase        = 12000
-SSHPrivateKey   = '/home/zhoufeng/.ssh/id_rsa'   # !!! Set your key here! !!!
-LocalNodeName   = "boao.hu.nornet"
-RemoteNodeName  = "isbre.unis.nornet"
+SSHPrivateKey   = '/home/yu/.ssh/id_rsa'   # !!! Set your key here! !!!
+LocalNodeName   = "julenisse.uia.nornet"
+RemoteNodeName  = "lungegaardsvannet.uib.nornet"
 
 
 
@@ -258,11 +258,11 @@ for repetition in range(1, 2):   # <<-- NOTE: Better do *not* use this!!! Instea
             #for cc in ['lia','olia','balia','wvegas','reno','cubic','hybla']:
             for cc in ['cubic']:
                for cmt in ['mptcp']:   # 'off'
-                  sndBufSize = 0,1000,100
+                  sndBufSize = 16 * 1024 * 1024
                   rcvBufSize = sndBufSize
-                  pathMgr    = 'fullmesh'
-                  nDiffPorts = 1
-                  allRuns.append([now, localSite, localNode, localProvider, remoteSite, remoteNode, remoteProvider, ipVersion,sndBufSize, rcvBufSize, cc, cmt, pathMgr, nDiffPorts])
+                  for pathMgr in [ 'fullmesh' ]:
+                     nDiffPorts = 2
+                     allRuns.append([now, localSite, localNode, localProvider, remoteSite, remoteNode, remoteProvider, ipVersion,sndBufSize, rcvBufSize, cc, cmt, pathMgr, nDiffPorts])
 
 runNumber = 0
 totalRuns = len(allRuns)

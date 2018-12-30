@@ -40,17 +40,17 @@
 
 					<label>
 						<span>MesurementName:</span>
-						<input type="text" name="MesurementName" value="buffer-run"/>
+						<input type="text" name="MesurementName" value="uia-uib"/>
 					</label>
 
 					<label>
 						<span>SliceName:</span>
-						<input type="text" name="SliceName" value="hu_zhoufeng"/>
+						<input type="text" name="SliceName" value="hu_yu"/>
 					</label>
 
 					<label>
 						<span>Runtime:</span>
-						<input type="text" name="Runtime" value="5" />
+						<input type="text" name="Runtime" value="30" />
 					</label>
 					<label>
 						<span>PortBase:</span>
@@ -59,16 +59,16 @@
 
 					<label>
 						<span>SSHPrivateKey:</span>
-						<input type="text" name="SSHPrivateKey" value="/home/zhoufeng/.ssh/id_rsa"/>
+						<input type="text" name="SSHPrivateKey" value="/home/yu/.ssh/id_rsa"/>
 					</label>
 
 					<label>
 						<span>LocalNodeName:</span>
-						<input type="text" name="LocalNodeName" value="boao.hu.nornet"/>
+						<input type="text" name="LocalNodeName" value="julenisse.uia.nornet"/>
 					</label>
 					<label>
 						<span>RemoteNodeName:</span>
-						<input type="text" name="RemoteNodeName" value="isbre.unis.nornet" />
+						<input type="text" name="RemoteNodeName" value="lungegaardsvannet.uib.nornet" />
 					</label>
 
 					<label>
@@ -82,16 +82,16 @@
 					</label>
 					<label>
 						<span>SndBufSize:</span>
-						<input  type="text" name="SndBufSize" value="0,1000,100" width="35"/>
+						<input  type="text" name="SndBufSize" value="16 * 1024 * 1024" width="35"/>
 					
 					</label>
 					<label>
 						<span>PathMgr:</span>
 						<div class='checkbox'>
-							<span>fullmesh <input type="checkbox" checked='checked' name="path" value ="fullmesh"/></span>
-							<span>binder <input type="checkbox" name="path" value ="binder"/></span>
-							<span>ndiffport <input type="checkbox" name="path" value ="ndiffports"/></span>
-							<span>default <input type="checkbox" name="path" value ="default"/></span>
+							<span>fullmesh <input type="checkbox" checked='checked' name="PathMgr" value ="fullmesh"/></span>
+							<span>binder <input type="checkbox" name="PathMgr" value ="binder"/></span>
+							<span>ndiffport <input type="checkbox" name="PathMgr" value ="ndiffports"/></span>
+							<span>default <input type="checkbox" name="PathMgr" value ="default"/></span>
 						</div>
 					</label>
 					<label>

@@ -54,7 +54,7 @@ public class configurationAction extends HttpServlet
 		
 			String sndBufSize = req.getParameter("SndBufSize");
 			
-			String pathMgr = req.getParameter("PathMgr");
+			String[] pathMgr = req.getParameterValues("PathMgr");
 			
 			String[] cc = req.getParameterValues("CC");
 			//System.out.println(pathMgr);
@@ -125,7 +125,7 @@ public class configurationAction extends HttpServlet
 				String script = configScript.createCC(measurementName , sliceName , runtime , portBase , sshPrivateKey
 					,localNodeName , remoteNodeName , ipVersion , cmt , sndBufSize , pathMgr , cc , path , req , resp);
 				req.setAttribute("script", script);
-				req.setAttribute("scriptName", "auto-cc");
+				req.setAttribute("scriptName", measurementName);
 				System.out.println("-----------------------");
 				req.getRequestDispatcher("getScript.jsp").forward(req,resp);			
 			}		

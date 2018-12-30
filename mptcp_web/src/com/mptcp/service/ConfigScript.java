@@ -14,7 +14,7 @@ public class ConfigScript
 	public String createCC(String measurementName , String sliceName , 
 			String runtime , String portBase , String sshPrivateKey , String localNodeName , 
 			String remoteNodeName , String ipVersion , String[] cmt , String sndBufSize , 
-			String pathMgr , String[] cc , String path ,HttpServletRequest request, 
+			String[] pathMgr , String[] cc , String path ,HttpServletRequest request, 
 			HttpServletResponse response) throws Exception
 	{
 		
@@ -69,6 +69,17 @@ public class ConfigScript
 		
 		
 		script = script.replace("sndBufSize = 0" , "sndBufSize = "+sndBufSize);
+		
+		//替换峰哥脚本的语句: pathMgr    = 'fullmesh'为可选的多个路径管理算法
+		String fpathMgr = "for pathMgr in [ ";
+		for(int i = 0 ; i < pathMgr.length ; i++)
+		{
+			fpathMgr += "'"+pathMgr[i]+"'";
+			if(i != pathMgr.length-1)
+				fpathMgr +=", ";
+		}
+		fpathMgr +=" ]:";
+		script = script.replace("for pathMgr in [ 'default', 'fullmesh' ]:",fpathMgr);
 		
 		String fcmt = "for cmt in [";
 		for(int i = 0 ; i < cmt.length ; i++)
