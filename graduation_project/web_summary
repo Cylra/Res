@@ -1,0 +1,22 @@
+部署web文件夹到新的主机时,
+一.在.bashrc文件添加以下内容
+#JAVA
+export JAVA_HOME=$HOME/jdk1.8.0/
+export JRE_HOME=$JAVA_HOME/jre
+export PATH=$JAVA_HOME/bin:$JRE_HOME/bin:$PATH
+export CLASSPATH=$JAVA_HOME/lib:$JRE_HOME/lib:.
+#TOMCAT
+export TOMCAT_HOME=$HOME/apache-tomcat-8.5.35
+export MPTCP_HOME=$TOMCAT_HOME/webapps/mptcp
+二.修改src.com.mptcp.action下的public_var.java,所有执行需要和
+产生的文件(R/Shell,输出文件等)所在的文件夹路径
+三.修改绘图R脚本中,文件夹名直接传值->传参赋值
+args<-commandArgs(T)
+name <- args[1]
+
+Thomas脚本文件夹部分文件功能对照
+AutoCreatedCongestionControl <-> web页面配置参数后自动生成的脚本
+autoRun_ly.sh <-> 执行生成的脚本,依据绘图脚本生成pdf文件等
+ResultCongestionControl <-> autoRun_ly.sh的输出存储在此
+run-uia-uib <-> 依托此文件,根据web页面配置生成新的脚本文件
+*.R <-> 绘图脚本

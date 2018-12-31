@@ -175,10 +175,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			
 			var RunResult = function()//脚本运行结束，开始出现数据可视化
 			{
-				if(xmlHttpRequest.readyState == 4 )
-				{
+				//if(xmlHttpRequest.readyState == 4 )
+				//{
 					if(xmlHttpRequest.status == 200)
 					{
+						alert(String(xmlHttpRequest.readyState));
 						$("#run").val("查看脚本");
 						$("#result").css("display" , "block");
 						flag = 1;
@@ -187,7 +188,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						CollecResult();
 						
 					}
-				}
+				//}
 			}
 			
 			
