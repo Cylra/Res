@@ -16,6 +16,7 @@ ifconfig
 !
 
 folder=`grep -Po "(?<=MeasurementName = ')(.*)(?=')"  AutoCreatedCongestionControl`
+type=`grep -Po "(?<=# Research direction: )(.*)$"  AutoCreatedCongestionControl`
 #rm -rf $folder
 #echo "ping -w 150 www.baidu.com"
 #ping -w 150 www.baidu.com
@@ -26,5 +27,5 @@ echo $folder
 echo ""
 #chmod +x AutoCreatedCongestionControl
 #./AutoCreatedCongestionControl
-Rscript plot-demo.R $folder
+Rscript ${type}.R $folder
 #mv ${folder}.pdf WebRoot/pdf/

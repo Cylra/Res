@@ -78,9 +78,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			padding-right: 10px;
 			margin-top: 10px;
 			color: #000000;
-		}
-		
-		
+		}		
 		
 		.basic-grey .button {
 			background: #E27575;
@@ -119,8 +117,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			var interval = null;
 			var flag = 1;
 			var script = $("#area").html();
-			
-			
+
 			$("#run").click(function()
 			{
 				if($("#run").val() == "查看脚本")
@@ -136,7 +133,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						flag = 0 ;
 						$("#run").val("正在运行");
 						
-						var xmlHttpRequest = createXmlHttpRequest();
+						xmlHttpRequest = createXmlHttpRequest();
 						
 						if(null != xmlHttpRequest)
 						{
@@ -147,7 +144,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							xmlHttpRequest.send(scriptName);
 							
 							//脚本运行后，开始接受数据(实际上是调用数据Servlet) by tqn
-							interval = setInterval(CollecResult , 1000);
+							interval = setInterval(CollecResult , 2000);
+							console.log("########################");
+							console.log(xmlHttpRequest.responseURL);
+							console.log("########################");
 						};
 					}
 					else
@@ -160,6 +160,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			
 			function createXmlHttpRequest()
 			{
+				var xmlHttpRequest = null;
 				if(window.ActiveXObject)
 				{
 					xmlHttpRequest = new ActiveXObject("microsoft.XMLHTTP");
@@ -170,52 +171,46 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				}
 				return xmlHttpRequest;
 			};
-			
-			
-			
+						
 			var RunResult = function()//脚本运行结束，开始出现数据可视化
 			{
 				//if(xmlHttpRequest.readyState == 4 )
 				//{
 					if(xmlHttpRequest.status == 200)
 					{
+						console.log(xmlHttpRequest.readyState + "-----------------" + xmlHttpRequest.responseURL);
 						alert(String(xmlHttpRequest.readyState));
 						$("#run").val("查看脚本");
 						$("#result").css("display" , "block");
 						flag = 1;
 						clearInterval(interval);
-						//显示脚本运行时的输出,应注释掉
 						CollecResult();
 						
 					}
 				//}
 			}
 			
-			
-			
-			
-		
+			//20190417 添加XMLHttpRequest对象,用于显示脚本运行时的输出
+			var xmlHttpRequest_logs = createXmlHttpRequest();
 			var CollecResult = function()
 			{
-				var xmlHttpRequest = createXmlHttpRequest();
-					
-					if(null != xmlHttpRequest)
-					{
-						xmlHttpRequest.open("GET","CollectResultAction",true);
-						xmlHttpRequest.onreadystatechange = ShowResult;
-						xmlHttpRequest.send(null);
-						//脚本运行后，开始接受数据(实际上是调用数据Servlet) by tqn
-					};
+				if(null != xmlHttpRequest_logs)
+				{
+					xmlHttpRequest_logs.open("GET","CollectResultAction",true);
+					xmlHttpRequest_logs.onreadystatechange = ShowResult;
+					xmlHttpRequest_logs.send(null);
+					//脚本运行后，开始接受数据(实际上是调用数据Servlet) by tqn
+				};
 			}
 			
 			var ShowResult = function()
 			{
-				if(xmlHttpRequest.readyState == 4 )
+				if(xmlHttpRequest_logs.readyState == 4 )
 				{
-					if(xmlHttpRequest.status == 200)
+					if(xmlHttpRequest_logs.status == 200)
 					{
 						//显示
-						var content = xmlHttpRequest.responseText;
+						var content = xmlHttpRequest_logs.responseText;
 						$("#area").html(content)
 					}
 				}

@@ -37,7 +37,7 @@ MeasurementName = 'uia-uib'
 SliceName       = 'hu_zhoufeng'
 Runtime         = 60
 PortBase        = 12402
-SSHPrivateKey   = '/home/zhoufeng/.ssh/id_rsa'   # !!! Set your key here! !!!
+SSHPrivateKey   = os.path.expanduser('~') + '/.ssh/id_rsa'   # !!! Set your key here! !!!
 LocalNodeName   = "fjoesnisse.uia.nornet"
 RemoteNodeName  = "bergenhus.uib.nornet"
 
@@ -258,11 +258,12 @@ for repetition in range(1, 2):   # <<-- NOTE: Better do *not* use this!!! Instea
             #for cc in ['lia','olia','balia','wvegas','reno','cubic','hybla']:
             for cc in ['cubic','reno','dctcp','bic','highspeed','htcp','hybla','illinois','lp','scalable','vegas','veno','westwood','yeah','balia','lia','olia','wvegas']:
                for cmt in [ 'mptcp','off' ]:   # 'off'
-                  sndBufSize = 0
-                  rcvBufSize = sndBufSize
-                  for pathMgr in [ 'default', 'fullmesh' ]:
-                     nDiffPorts = 2
-                     allRuns.append([now, localSite, localNode, localProvider, remoteSite, remoteNode, remoteProvider, ipVersion,sndBufSize, rcvBufSize, cc, cmt, pathMgr, nDiffPorts])
+                  for bufsize in [ 16 ]:
+                     sndBufSize = bufsize * 1024 * 1024
+                     rcvBufSize = sndBufSize
+                     for pathMgr in [ 'default', 'fullmesh' ]:
+                        nDiffPorts = 2
+                        allRuns.append([now, localSite, localNode, localProvider, remoteSite, remoteNode, remoteProvider, ipVersion,sndBufSize, rcvBufSize, cc, cmt, pathMgr, nDiffPorts])
 
 runNumber = 0
 totalRuns = len(allRuns)

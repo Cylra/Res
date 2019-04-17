@@ -57,6 +57,8 @@ public class configurationAction extends HttpServlet
 			String[] pathMgr = req.getParameterValues("PathMgr");
 			
 			String[] cc = req.getParameterValues("CC");
+
+			String method = req.getParameter("method");
 			//System.out.println(pathMgr);
 			
 			ConfigScript configScript = new ConfigScript();
@@ -123,7 +125,7 @@ public class configurationAction extends HttpServlet
 			else
 			{
 				String script = configScript.createCC(measurementName , sliceName , runtime , portBase , sshPrivateKey
-					,localNodeName , remoteNodeName , ipVersion , cmt , sndBufSize , pathMgr , cc , path , req , resp);
+					,localNodeName , remoteNodeName , ipVersion , cmt , sndBufSize , pathMgr , cc , method, path , req , resp);
 				req.setAttribute("script", script);
 				req.setAttribute("scriptName", measurementName);
 				System.out.println("-----------------------");

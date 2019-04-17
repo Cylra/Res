@@ -18,6 +18,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 # Contact: dreibh@simula.no
+# Research direction: huanchong
 
 import sys
 import os
@@ -37,7 +38,7 @@ MeasurementName = 'uia-uib'
 SliceName       = 'hu_yu'
 Runtime         = 30
 PortBase        = 12000
-SSHPrivateKey   = '/home/yu/.ssh/id_rsa'   # !!! Set your key here! !!!
+SSHPrivateKey   = os.path.expanduser('~') + '/.ssh/id_rsa'   # !!! Set your key here! !!!
 LocalNodeName   = "julenisse.uia.nornet"
 RemoteNodeName  = "lungegaardsvannet.uib.nornet"
 
@@ -258,11 +259,12 @@ for repetition in range(1, 2):   # <<-- NOTE: Better do *not* use this!!! Instea
             #for cc in ['lia','olia','balia','wvegas','reno','cubic','hybla']:
             for cc in ['cubic']:
                for cmt in ['mptcp']:   # 'off'
-                  sndBufSize = 16 * 1024 * 1024
-                  rcvBufSize = sndBufSize
-                  for pathMgr in [ 'fullmesh' ]:
-                     nDiffPorts = 2
-                     allRuns.append([now, localSite, localNode, localProvider, remoteSite, remoteNode, remoteProvider, ipVersion,sndBufSize, rcvBufSize, cc, cmt, pathMgr, nDiffPorts])
+                  for bufsize in [ 16 ]:
+                     sndBufSize = bufsize * 1024 * 1024
+                     rcvBufSize = sndBufSize
+                     for pathMgr in [ 'fullmesh' ]:
+                        nDiffPorts = 2
+                        allRuns.append([now, localSite, localNode, localProvider, remoteSite, remoteNode, remoteProvider, ipVersion,sndBufSize, rcvBufSize, cc, cmt, pathMgr, nDiffPorts])
 
 runNumber = 0
 totalRuns = len(allRuns)

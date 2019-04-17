@@ -14,7 +14,7 @@ public class ConfigScript
 	public String createCC(String measurementName , String sliceName , 
 			String runtime , String portBase , String sshPrivateKey , String localNodeName , 
 			String remoteNodeName , String ipVersion , String[] cmt , String sndBufSize , 
-			String[] pathMgr , String[] cc , String path ,HttpServletRequest request, 
+			String[] pathMgr , String[] cc , String method, String path ,HttpServletRequest request, 
 			HttpServletResponse response) throws Exception
 	{
 		
@@ -24,12 +24,7 @@ public class ConfigScript
 		
 		StringBuffer sb = new StringBuffer();
 		String str ;
-		
-		
-		
-		
-		
-		
+				
 		while((str = br.readLine()) != null)
 		{
 			sb.append(str+"\n");
@@ -47,7 +42,17 @@ public class ConfigScript
 		
 		script = script.replaceFirst("PortBase        = 12402" , "PortBase        = "+portBase);
 		
-		script = script.replaceFirst("SSHPrivateKey   = '/home/zhoufeng/.ssh/id_rsa'" , "SSHPrivateKey   = '"+sshPrivateKey+"'");
+		/*20190416 将源文件run-uia-uib中私钥的赋值改为固定形式,
+		  不再在前端界面填写私钥地址,此处也无需再进行替换
+		  同时添加前端method传值,作为可视化时调用不同R绘图脚本的识别参数:
+		  1 缓冲区
+		  2 路径管理
+		  3 拥塞控制
+		  4 鲁棒性(未实现)
+		*/
+		//script = script.replaceFirst("SSHPrivateKey   = '/home/zhoufeng/.ssh/id_rsa'" , "SSHPrivateKey   = '"+sshPrivateKey+"'");
+		String tmp = "# Contact: dreibh@simula.no";
+		script = script.replaceFirst(tmp, tmp + "\n# Research direction: " + method);
 		
 		script = script.replaceFirst("LocalNodeName   = \"fjoesnisse.uia.nornet\"" , "LocalNodeName   = \""+localNodeName+"\"");
 		
@@ -67,8 +72,9 @@ public class ConfigScript
 		}
 		script = script.replace("for ipVersion in [ 6 ]:" , ipVersion);
 		
-		
-		script = script.replace("sndBufSize = 0" , "sndBufSize = "+sndBufSize);
+		//20190416 替换峰哥脚本的语句: sndBufSize = 0为可选的多个缓冲区大小
+		String bufsize = "for bufsize in [ " + sndBufSize + " ]:";
+		script = script.replace("for bufsize in [ 16 ]:" , bufsize);
 		
 		//替换峰哥脚本的语句: pathMgr    = 'fullmesh'为可选的多个路径管理算法
 		String fpathMgr = "for pathMgr in [ ";
@@ -110,8 +116,6 @@ public class ConfigScript
 		bw.close();
 		br.close();
 		
-		
 		return script;
-		
 	}
 }

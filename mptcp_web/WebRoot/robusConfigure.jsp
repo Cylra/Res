@@ -46,7 +46,7 @@
 
 					<label>
 						<span>SSHPrivateKey:</span>
-						<input type="text" name="SSHPrivateKey"  value="/home/yu/.ssh/id_rsa" />
+						<input type="text" name="SSHPrivateKey"  value="~/.ssh/id_rsa" disabled="disabled"/>
 					</label>
 					<label>
 						<span>LocalNodeName:</span>
@@ -94,7 +94,7 @@
 
 					<label>
 						<span>SndBufSize:</span>
-						<input type="text" name="SndBufSize" value="16 * 1024 * 1024" />
+						<input type="text" name="SndBufSize" value="16" />
 					</label>
 					
 
@@ -117,7 +117,7 @@
 							</span>
 							<span>illinois<input type="checkbox" name="CC"
 									value="illinois" /> </span>
-							<span>IP<input type="checkbox" name="CC" value="IP" /> </span>
+							<span>lp<input type="checkbox" name="CC" value="lp" /> </span>
 							<span>scalable<input type="checkbox" name="CC"
 									value="scalable" /> </span>
 							<span>vegas<input type="checkbox" name="CC" value="vegas" />
@@ -129,6 +129,8 @@
 							<span>yeah<input type="checkbox" name="CC" value="yeah" />
 							</span>
 							<span>balia<input type="checkbox" name="CC" value="balia" />
+							</span>
+							<span>lia<input type="checkbox" name="CC" value="lia" />
 							</span>
 							<span>olia<input type="checkbox" name="CC" value="olia" />
 							</span>
