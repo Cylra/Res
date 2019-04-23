@@ -101,3 +101,10 @@ ip -4 addr show dev eth0
 Multi-homing is handled by the tunnelbox. 
 It already has the IP routing rules configured. 
 So, no need to set up routing rules in NorNet Core VMs.
+
+2019年4月22日下午5-6点
+Thomas
+NorNet Core control scripts repository: https://github.com/simula/nornet-control
+Query sites: src/Get-Sites
+Query nodes: src/Get-Nodes
+More details: src/Get-NorNet-Configuration

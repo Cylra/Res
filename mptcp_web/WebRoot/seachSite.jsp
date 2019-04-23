@@ -46,19 +46,54 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				}
 			}
 		}
+		/*20190423
+		  重组查询结果,拼接出HTML表格片段,
+		  用于jQuery添加表格展示DOM
+		*/
+		function generate_table_DOM(aa)
+		{
+			var tt = "<tbody>\n";
+			for(var i=0; i<aa.length; i++)
+			{
+				var tmp = aa[i].trim().split(/  +/); //注意正则中是2个空格,1个空格会将Hainan University分割为2个字符串
+				tt += "<tr>\n";
+				tt += "  <td>" + (i+1) + "：	</td>\n";
+				tt += "  <td>" + tmp[0] + "</td>\n";
+				tt += "  <td>&nbsp;&nbsp;&nbsp;&nbsp;" + tmp[1] + "</td>\n";
+				tt += "</tr>\n"
+			}
+			tt += "</tbody>\n";
+			return tt;
+		}
 		function turn(obj)
 		{
-			var change = document.getElementById("change");
-			
-			
+			var site_table = $("#change");
+
 			if(obj.value == "收起所有站点")
 			{
-				change.style.display = "none";
+				site_table.css("display","none");
 				obj.value="查询所有站点"
 			}
 			else
 			{
-				change.style.display = "block";
+				//20190423 增加查询全部站点的功能
+				//清空
+				site_table.html("");
+				//执行查询
+				htmlobj1 = $.ajax({
+					url: "SearchAction",
+					data: { Index: "1" },
+					async: false
+				});
+				var aa = htmlobj1.responseText.split("\n");
+				//删除最后一项的空字符串""
+				aa.pop();
+
+				var tt = generate_table_DOM(aa);
+				//console.log(tt);
+				site_table.append(tt);
+				site_table.css("display","block");
+
 				obj.value="收起所有站点"
 			}
 			
@@ -67,62 +102,81 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		function seachSite(obj)
 		{
 			var siteName = document.getElementsByName("siteName")[0].value;
+			if( 0 == siteName.length ){
+				alert("请重新输入!")
+				return;
+			}
+			//20190423 增加查询指定站点的节点
+			var node_table = $("#HUsite");
+			//清空
+			//node_table.html("");
+			//执行查询
+			htmlobj2 = $.ajax({
+				url: "SearchAction",
+				data: { Index: "2", Site: siteName },
+				async: false
+			});
+			var aa = htmlobj2.responseText.split("\n");
+			//删除最后一项的空字符串""
+			aa.pop();
+
+			var tt = generate_table_DOM(aa);
+			//console.log(tt);
+			//node_table.append(tt);
+			//node_table.css("display","block");
+
 			var HUsite = document.getElementById("HUsite");
 			var SRLsite = document.getElementById("SRLsite");
-			var UIOsite = document.getElementById("UIOsite");
-			var HIGsite = document.getElementById("HIGsite");
 			if(siteName=="HU")
 			{
 				HUsite.style.display = "block";
 				SRLsite.style.display = "none";
-				UIOsite.style.display = "none";
-				HIGsite.style.display = "none";
 			}
 			if(siteName=="SRL")
 			{
 				HUsite.style.display = "none";
 				SRLsite.style.display = "block";
-				UIOsite.style.display = "none";
-				HIGsite.style.display = "none";
-			}
-			if(siteName=="UIO")
-			{
-				HUsite.style.display = "none";
-				SRLsite.style.display = "none";
-				UIOsite.style.display = "block";
-				HIGsite.style.display = "none";
-			}
-			if(siteName=="HIG")
-			{
-				HUsite.style.display = "none";
-				SRLsite.style.display = "none";
-				UIOsite.style.display = "none";
-				HIGsite.style.display = "block";
 			}
 		}
 		
 		function seach(obj)
 		{
+			//20190422 增加根据Slice查询站点信息的功能
+			var slice_table = $("#slice_zhoufeng");
+			//清空
+			slice_table.html("");
+			//执行查询
 			var sliceNodes = document.getElementsByName("sliceNodes")[0].value;
+			if( 0 == sliceNodes.length ){
+				alert("请重新输入!")
+				return;
+			}
+			htmlobj3 = $.ajax({
+				url: "SearchAction",
+				data: { Index: "3", Slice: sliceNodes },
+				async: false
+			});
+			var aa = htmlobj3.responseText.split("\n");
+			//删除最后一项的空字符串""
+			aa.pop();
+
+			var tt = generate_table_DOM(aa);
+			//console.log(tt);
+			slice_table.append(tt);
+			slice_table.css("display", "block");
+			/*
 			var slice_zhoufeng = document.getElementById("slice_zhoufeng");
 			var slice_chengxi = document.getElementById("slice_chengxi");
-			var slice_fufa = document.getElementById("slice_fufa");
 			if(sliceNodes=="hu_zhoufeng")
 			{
 				slice_zhoufeng.style.display = "block";
 				slice_chengxi.style.display = "none";
-				slice_fufa.style.display = "none";
 			}
 			if(sliceNodes=="hu_chengxi"){
 				slice_chengxi.style.display = "block";
 				slice_zhoufeng.style.display = "none";
-				slice_fufa.style.display = "none";
 			}
-			if(sliceNodes=="hu_fufa"){
-				slice_fufa.style.display = "block";
-				slice_zhoufeng.style.display = "none";
-				slice_chengxi.style.display = "none";
-			}
+			*/
 		}
 	</script>
 
@@ -221,7 +275,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<table border="1" id = "HUsite" style="display:none">
 										<%
 											String[] site={"boao","longhu","bamenbay","wanqun","nanshan","yalongbay"};
-											for(int i=1; i < site.length ; i++)
+											for(int i=1; i <= site.length ; i++)
 											{
 										%>
 										<tr>
@@ -250,7 +304,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 													"vaekeroe",
 													"akerselva",
 													"ullern"};
-											for(int i=1; i < srlSite.length ; i++)
+											for(int i=1; i <= srlSite.length ; i++)
 											{
 										%>
 										<tr>
@@ -259,52 +313,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 											</td>
 											<td>
 												<%=srlSite[i-1]%>
-											</td>
-										</tr>
-										<% 	
-											}
-										%>
-							</table>
-							<table border="1" id = "UIOsite" style="display:none">
-										<%
-											String[] uioSite={"bjoervika",
-													"ekeberg",
-													"furuset",
-													"grefsen",
-													"helsfyr",
-													"toeyen"};
-											for(int i=1; i < uioSite.length ; i++)
-											{
-										%>
-										<tr>
-											<td>
-												<%=i %>：	
-											</td>
-											<td>
-												<%=uioSite[i-1]%>
-											</td>
-										</tr>
-										<% 	
-											}
-										%>
-							</table>
-							<table border="1" id = "HIGsite" style="display:none">
-										<%
-											String[] higSite={"kapp",
-													"eina",
-													"raufoss",
-													"reinsvoll",
-													"skreia",
-													"lena"};
-											for(int i=1; i < higSite.length ; i++)
-											{
-										%>
-										<tr>
-											<td>
-												<%=i %>：	
-											</td>
-											<td>
-												<%=higSite[i-1]%>
 											</td>
 										</tr>
 										<% 	
@@ -338,60 +346,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 													"yongsan.korea.nornet             boot",
 													"baldeneysee.ude.nornet           reinstall",
 													"isbre.unis.nornet                boot",
-													"nordlys.unis.nornet              boot",
-													/* "furuset.uio.nornet               boot"
-													"kaiserberg.tukl.nornet           boot",
-													"altenessen.ude.nornet            reinstall",
-													"storsteinsfjellet.hin.nornet     boot",
-													"fagernesfjellet.hin.nornet       boot",
-													"bjoervika.uio.nornet             boot",
-													"bessungen.tuda.nornet            boot",
-													"bjoernfjell.hin.nornet           boot",
-													"isfjorden.unis.nornet            boot",
-													"rennesoey.uis.nornet             boot",
-													"bymarka.ntnu.nornet              boot",
-													"rombakstoetta.hin.nornet         boot",
-													"boao.hu.nornet                   boot",
-													"borbeck.ude.nornet               reinstall",
-													"edelsteinviertel.tuda.nornet     boot",
-													"julenisse.uia.nornet             boot",
-													"mosteroey.uis.nornet             boot",
-													"bybro.ntnu.nornet                boot",
-													"hovedoeya.hioa.nornet            boot",
-													"longlou.hu.nornet                boot",
-													"snoeflak.unis.nornet             boot",
-													"skreia.hig.nornet                boot",
-													"fjoeloey.uis.nornet              boot",
-													"floeibanen.uib.nornet            boot",
-													"kongsbakken.uit.nornet           boot",
-													"reeperbahn.haw.nornet            boot",
-													"arctandria.uit.nornet            boot",
-													"lindoeya.hioa.nornet             boot",
-													"hagenisse.uia.nornet             boot",
-													"wanqun.hu.nornet                 boot",
-													"reinsvoll.hig.nornet             boot",
-													"mapo.korea.nornet                boot",
-													"skipsnisse.uia.nornet            boot",
-													"akerbrygge.simula.nornet         boot",
-													"betzenberg.tukl.nornet           boot",
-													"klaraelven.kau.nornet            boot",
-													"sverresborg.uib.nornet           boot",
-													"herbertstrasse.haw.nornet        boot",
-													"hongshulin.hkc.nornet            reinstall",
-													"vestreaker.simula.nornet         boot",
-													"baishamen.hkc.nornet             reinstall",
-													"grefsen.uio.nornet               boot",
-													"kettwig.ude.nornet               reinstall",
-													"watson.ku.nornet                 boot",
-													"yalongbay.hu.nornet              boot",
-													"nakholmen.hioa.nornet            boot",
-													"ullern.simula.nornet             boot",
-													"grossefreiheit.haw.nornet        boot",
-													"toeyen.uio.nornet                boot",
-													"bakklandet.ntnu.nornet           boot",
-													"nansen.uit.nornet                boot",
-													"woogsviertel.tuda.nornet         boot",
-													"klosteroey.uis.nornet            boot" */};
+													"nordlys.unis.nornet              boot"};
 											for(int i=1; i <= slice.length ; i++)
 											{
 										%>
@@ -430,27 +385,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 													"isfjorden.unis.nornet            boot",
 													"ekeberg.uio.nornet               boot",
 													"bygdoey.simula.nornet            boot",
-													"bymarka.ntnu.nornet              boot",
-													/* "rombakstoetta.hin.nornet         boot"
-													"mosteroey.uis.nornet             boot",
-													"skreia.hig.nornet                boot",
-													"floeibanen.uib.nornet            boot",
-													"kongsbakken.uit.nornet           boot",
-													"bamenbay.hu.nornet               boot",
-													"reeperbahn.haw.nornet            boot",
-													"lindoeya.hioa.nornet             boot",
-													"beisfjordtoetta.hin.nornet       boot",
-													"reinsvoll.hig.nornet             boot",
-													"mapo.korea.nornet                boot",
-													"skipsnisse.uia.nornet            boot",
-													"betzenberg.tukl.nornet           boot",
-													"klaraelven.kau.nornet            boot",
-													"sverresborg.uib.nornet           boot",
-													"bleikoeya.hioa.nornet            boot",
-													"hongshulin.hkc.nornet            reinstall",
-													"watson.ku.nornet                 boot",
-													"grossefreiheit.haw.nornet        boot",
-													"bakklandet.ntnu.nornet           boot" */};
+													"bymarka.ntnu.nornet              boot"};
 											for(int i=1; i <= slice_chengxi.length ; i++)
 											{
 										%>
@@ -466,68 +401,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 											}
 										%>
 							</table>
-							<table border="1" id = "slice_fufa" style="display:none">
-										<%
-											String[] slice_fufa={"aunegaarden.uit.nornet           boot",
-													"wanlvyuan.hkc.nornet             reinstall",
-													"bondi.nicta.nornet               disabled",
-													"sokn.uis.nornet                  boot",
-													"coogee.nicta.nornet              disabled",
-													"clinton.ku.nornet                boot",
-													"mariebergsskogen.kau.nornet      boot",
-													"gaardsnisse.uia.nornet           boot",
-													"yongsan.korea.nornet             boot",
-													"baldeneysee.ude.nornet           reinstall",
-													"kaiserberg.tukl.nornet           boot",
-													"midnattssol.unis.nornet          boot",
-													"fagernesfjellet.hin.nornet       boot",
-													"bjoervika.uio.nornet             boot",
-													"adventfjorden.unis.nornet        boot",
-													"bymarka.ntnu.nornet              boot",
-													"borbeck.ude.nornet               reinstall",
-													"edelsteinviertel.tuda.nornet     boot",
-													"mosteroey.uis.nornet             boot",
-													"skarven.uit.nornet               boot",
-													"longlou.hu.nornet                boot",
-													"skreia.hig.nornet                boot",
-													/* "floeibanen.uib.nornet            boot"
-													"lungegaardsvannet.uib.nornet     boot",
-													"lena.hig.nornet                  boot",
-													"reeperbahn.haw.nornet            boot",
-													"lindoeya.hioa.nornet             boot",
-													"beisfjordtoetta.hin.nornet       boot",
-													"wanqun.hu.nornet                 boot",
-													"mapo.korea.nornet                boot",
-													"betzenberg.tukl.nornet           boot",
-													"lerkendal.ntnu.nornet            boot",
-													"klaraelven.kau.nornet            boot",
-													"nakholmen.hioa.nornet            boot",
-													"baishamen.hkc.nornet             reinstall",
-													"vestreaker.simula.nornet         boot",
-													"watson.ku.nornet                 boot",
-													"ullern.simula.nornet             boot",
-													"heinzelnisse.uia.nornet          boot",
-													"grossefreiheit.haw.nornet        boot",
-													"toeyen.uio.nornet                boot",
-													"woogsviertel.tuda.nornet         boot" */};
-											for(int i=1; i <= slice_fufa.length ; i++)
-											{
-										%>
-										<tr>
-											<td>
-												<%=i %>：	
-											</td>
-											<td>
-												<%=slice_fufa[i-1]%>
-											</td>
-										</tr>
-										<% 	
-											}
-										%>
-							</table>
 					</td>
 				</tr>
-				
+
 				<tr style="top-margin:1em">
 					<td colspan="3" valign="top">
 					
