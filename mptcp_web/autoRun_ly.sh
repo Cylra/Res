@@ -1,27 +1,14 @@
 #! /bin/bash
 
+#清空输出日志
 echo 'echo "" > ResultCongestionControl'
 echo "" > ResultCongestionControl
 
-:<<!
-pwd
-hhhhhhhh
-export LANG=C
-ls -l
-echo ""
-Ls
-sleep 5
-ifconfig
-#ping -w 10 www.baidu.com
-!
-
 folder=`grep -Po "(?<=MeasurementName = ')(.*)(?=')"  AutoCreatedCongestionControl`
 type=`grep -Po "(?<=# Research direction: )(.*)$"  AutoCreatedCongestionControl`
+#迁移到NorNet内网,实际运行脚本前,要清空实验数据
 #rm -rf $folder
-#echo "ping -w 150 www.baidu.com"
 #ping -w 150 www.baidu.com
-#echo "./test.sh"
-#./test.sh
 
 echo $folder
 echo ""

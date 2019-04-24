@@ -49,9 +49,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		/*20190423
 		  重组查询结果,拼接出HTML表格片段,
 		  用于jQuery添加表格展示DOM
+		  20190424
+		  修改参数aa -> response_type,
+		  直接处理jQuery ajax返回的对象
+		  增加参数table_type,用于site/node/slice
+		  3个表格直接添加DOM节点,删除返回值tt
 		*/
-		function generate_table_DOM(aa)
+		function generate_table_DOM(response_type, table_type)
 		{
+			var aa = response_type.responseText.split("\n");
+			//删除最后一项的空字符串""
+			aa.pop();
+
 			var tt = "<tbody>\n";
 			for(var i=0; i<aa.length; i++)
 			{
@@ -59,11 +68,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				tt += "<tr>\n";
 				tt += "  <td>" + (i+1) + "：	</td>\n";
 				tt += "  <td>" + tmp[0] + "</td>\n";
-				tt += "  <td>&nbsp;&nbsp;&nbsp;&nbsp;" + tmp[1] + "</td>\n";
+				if(aa.length > 1){   //当输入有误,服务器返回错误信息时,无第三列可以显示
+					tt += "  <td>&nbsp;&nbsp;&nbsp;&nbsp;" + tmp[1] + "</td>\n";
+				}
 				tt += "</tr>\n"
 			}
 			tt += "</tbody>\n";
-			return tt;
+			
+			table_type.append(tt);
+			table_type.css("display","block");
 		}
 		function turn(obj)
 		{
@@ -85,14 +98,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					data: { Index: "1" },
 					async: false
 				});
-				var aa = htmlobj1.responseText.split("\n");
-				//删除最后一项的空字符串""
-				aa.pop();
-
-				var tt = generate_table_DOM(aa);
-				//console.log(tt);
-				site_table.append(tt);
-				site_table.css("display","block");
+				generate_table_DOM(htmlobj1, site_table);
 
 				obj.value="收起所有站点"
 			}
@@ -109,22 +115,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			//20190423 增加查询指定站点的节点
 			var node_table = $("#HUsite");
 			//清空
-			//node_table.html("");
+			node_table.html("");
 			//执行查询
 			htmlobj2 = $.ajax({
 				url: "SearchAction",
 				data: { Index: "2", Site: siteName },
 				async: false
 			});
-			var aa = htmlobj2.responseText.split("\n");
-			//删除最后一项的空字符串""
-			aa.pop();
-
-			var tt = generate_table_DOM(aa);
-			//console.log(tt);
-			//node_table.append(tt);
-			//node_table.css("display","block");
-
+			generate_table_DOM(htmlobj2, node_table);
+			/*
 			var HUsite = document.getElementById("HUsite");
 			var SRLsite = document.getElementById("SRLsite");
 			if(siteName=="HU")
@@ -137,6 +136,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				HUsite.style.display = "none";
 				SRLsite.style.display = "block";
 			}
+			*/
 		}
 		
 		function seach(obj)
@@ -156,14 +156,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				data: { Index: "3", Slice: sliceNodes },
 				async: false
 			});
-			var aa = htmlobj3.responseText.split("\n");
-			//删除最后一项的空字符串""
-			aa.pop();
-
-			var tt = generate_table_DOM(aa);
-			//console.log(tt);
-			slice_table.append(tt);
-			slice_table.css("display", "block");
+			generate_table_DOM(htmlobj3, slice_table);
 			/*
 			var slice_zhoufeng = document.getElementById("slice_zhoufeng");
 			var slice_chengxi = document.getElementById("slice_chengxi");
@@ -270,7 +263,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</td>
 								
 					<td width="34%" valign="top">
-							查询站点:<input type="text"  name= "siteName" />
+							查询节点:<input type="text"  name= "siteName" />
 							<input type = "button" value = "确认" onclick="seachSite(this)" >
 							<table border="1" id = "HUsite" style="display:none">
 										<%
