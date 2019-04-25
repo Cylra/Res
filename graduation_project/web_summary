@@ -20,3 +20,8 @@ autoRun_ly.sh <-> 执行生成的脚本,依据绘图脚本生成pdf文件等
 ResultCongestionControl <-> autoRun_ly.sh的输出存储在此
 run-uia-uib <-> 依托此文件,根据web页面配置生成新的脚本文件
 *.R <-> 绘图脚本
+#2019年4月25日下午5-6点
+在网站上运行路径管理,生成的柱状图显示数据有误,
+低速的PowerTech显示出高吞吐量,高速的Uninett显示出低吞吐量,
+即脚本运行产生的数据有误,Thomas修复了此bug,修改了run-uia-uib源文件
+path文件夹下展示了修复前后的柱状图对比

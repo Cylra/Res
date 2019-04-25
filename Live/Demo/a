@@ -1,0 +1,2 @@
+#!/bin/bash
+ffplay rtmp://[2001:250:3801:6e:351:c5a3:9b0d:f757]:1935/live/livestream
