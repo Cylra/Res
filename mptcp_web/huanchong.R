@@ -31,7 +31,7 @@ pTitle <- "Congestion Control{:varphi:}"
 
 
 #xAxisTicks <- getIntegerTicks(xSet , 1)   # Set to c() for automatic setting
-xAxisTicks <- seq(0, 25 , 1)
+xAxisTicks <- seq(0, 64 , 1)
 
 yAxisTicks <- getIntegerTicks(ySet , 1)   # Set to c() for automatic setting
 dotSet <- 0:18

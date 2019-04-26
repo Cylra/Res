@@ -109,15 +109,17 @@ def runMeasurement(now, slice, summaryFile,
                    ipVersion, sndBufSize, rcvBufSize, cc, cmt, pathMgr, nDiffPorts):
 
    remoteAddress = makeAddress(remoteSite, remoteNode, remoteProvider, ipVersion, slice)
-   if cmt != 'off':   # ------ Multi-path transport -------------------------
-      remotePort       = makePort(PortBase, remoteSite, remoteNode, None, ipVersion, slice)
-      localAddress     = makeAddress(localSite, localNode, None, ipVersion, slice)
-      # NOTE: Ping will record the initial path's RTTs!
-      pingLocalAddress = makeAddress(localSite, localNode, localProvider, ipVersion, slice)
-   else:              # ------ Single-path transport ------------------------
-      remotePort       = makePort(PortBase, remoteSite, remoteNode, remoteProvider, ipVersion, slice)
-      localAddress     = makeAddress(localSite, localNode, localProvider, ipVersion, slice)
-      pingLocalAddress = localAddress
+#20190425 路径管理生成的柱状图中,最高速的Uninett显示出低Throughput,Thomas修复此bug,
+#        具体展示和说明见graduation_project下的更新
+#   if cmt != 'off':   # ------ Multi-path transport -------------------------
+#      remotePort       = makePort(PortBase, remoteSite, remoteNode, None, ipVersion, slice)
+#      localAddress     = makeAddress(localSite, localNode, None, ipVersion, slice)
+#      # NOTE: Ping will record the initial path's RTTs!
+#      pingLocalAddress = makeAddress(localSite, localNode, localProvider, ipVersion, slice)
+# #  else:              # ------ Single-path transport ------------------------
+   remotePort       = makePort(PortBase, remoteSite, remoteNode, remoteProvider, ipVersion, slice)
+   localAddress     = makeAddress(localSite, localNode, localProvider, ipVersion, slice)
+   pingLocalAddress = localAddress
 
    # ------ Get parameter configuration -------------------
    scalarFileName = getScalarName(now, localSite, localNode, localProvider, remoteSite, remoteNode, remoteProvider,
