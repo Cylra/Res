@@ -90,22 +90,37 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</ul>
 						<div id="myTabContent" class="tab-content">
 							<div role="tabpanel" class="tab-pane fade in active" id="expeditions" aria-labelledby="expeditions-tab">
-								<div class="col-md-5 col-sm-5 tab-image" style="margin-top: 2em;">
+								<div class="col-lg-6 col-md-5 col-sm-5 tab-image" style="margin-top: 2em;">
 									<img src="images/mptcp2.png" alt="Medicinal">
 								</div>
-								<div class="col-md-7 col-sm-7 tab-info">
-									<p style="color:#fff;font-size:16px;"><font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在新的互联网环境中，不同的接入技术相互融合，通信终端通常具有多种网络接口，比如笔记本电脑同时配置有有线局域网和无线Wifi网络适配器，智能手机既可以接入蜂窝网络(UMTS或3G等)，又可以接入Wifi网络。另一方面，网络运营商通常会在接入链路和回程链路配置备用链路和设备，在网络失效时发挥作用。由此以来，两个通信端点之间就有可能存在多条路径。自然而然，出现了同时使用多条路径的想法，以此提升端到端连接的健壮性和传输性能。这样的多路径连接可以均衡负载、动态切换，自动将业务从最拥塞最易中断的路径上转移到较好的路径上。</font></p>
+								<div class="col-lg-6 col-md-7 col-sm-7 tab-info">
+									<p style="color:#fff;font-size:16px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在新的互联网环境中，
+										不同的接入技术相互融合，通信终端通常具有多种网络接口，比如笔记本电脑同时配置有有线局域网和无线Wifi网络适配器，
+										智能手机既可以接入蜂窝网络(UMTS或3G等)，又可以接入Wifi网络。
+										另一方面，网络运营商通常会在接入链路和回程链路配置备用链路和设备，在网络失效时发挥作用。
+										由此以来，两个通信端点之间就有可能存在多条路径。自然而然，出现了同时使用多条路径的想法，以此提升端到端连接的健壮性和传输性能。<br/>
+										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;项目组研究的基于传输层的多路径传输技术MPTCP(Multi-Path TCP)协议时候下一代互联网的研究内容，
+										面对如今网络的异构性、接入技术的多样性，MPTCP是能利用现有网络基础设施最经济的一种多路径并发传输技术。
+										这样的多路径连接可以均衡负载、动态切换，自动将业务从最拥塞最易中断的路径上转移到较好的路径上。
+										2016-17两年参加教育部举办的全国NGI技术创新大赛，分获三等与二等奖。项目组对MPTCP的研究获得3个国家自然科学基金、
+										国际合作、教育部赛尔网络中心创新项目、海南省海外名师项目等的支持。
+									</p>
 								</div>
 								<div class="clearfix"></div>
 							</div>
 							<div role="tabpanel" class="tab-pane fade" id="tours" aria-labelledby="tours-tab">
-								<div class="col-md-5 col-sm-5 tab-image" style="margin-top: 1.5em;">
+								<div class="col-lg-6 col-md-5 col-sm-5 tab-image" style="margin-top: 1.5em;">
 									<img src="images/nornet.png" alt="Medicinal">
 								</div>
-								<div class="col-md-7 col-sm-7 tab-info">
-									<p style="color:#000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;随着多路径传输技术的日趋成熟，急迫需要构建一个真实的分布式的测试环境，NorNet Testbed 就是由挪威simula国家实验室于2013构建起来的世界上第一个基于下一代互联网多宿主系统新技术的大规模多路径传输的测试床基础设
-施。该测试床由NorNet Core Test Bed (NNC-TB)和NorNet Edge Test Bed(NNE-TB)两部分组成，前者是基于固网的多路径传输的测试床设施，后者则是基于移动互联标准(MBB标准、 WiFi)的多路径传输而设计的。 两者的目标非常明
-确，就是为测试下一代互联网多宿主（Multi-Homing）系统性能的国际测试床。</p>
+								<div class="col-lg-6 col-md-7 col-sm-7 tab-info">
+									<p style="color:#000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;随着多路径传输技术的日趋成熟，急迫需要构建一个真实的分布式的测试环境，
+										NorNet Testbed 就是由挪威simula国家实验室于2013构建起来的世界上第一个基于下一代互联网多宿主系统新技术的大规模多路径传输的测试床基础设
+										施。该测试床由NorNet Core Test Bed (NNC-TB)和NorNet Edge Test Bed(NNE-TB)两部分组成，
+										前者是基于固网的多路径传输的测试床设施，后者则是基于移动互联标准(MBB标准、 WiFi)的多路径传输而设计的。 两者的目标明非常确，
+										就是为测试下一代互联网多宿主（Multi-Homing）系统性能的国际测试床。<br/>
+										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2013年海南大学建立了亚洲第一个MPTCP多路径传输NorNet国际测试床站点，并于2016年接入CERNET2平台，
+										开通IPv6网络，将站点更新为支持IPv4/IPv6的双栈式站点，项目组成员在测试床开展研究并发表10余篇相关论文。
+									</p>
 								</div>
 								<div class="clearfix"></div>
 							</div>
