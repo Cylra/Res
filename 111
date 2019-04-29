@@ -1,0 +1,24 @@
+http://www.binarytides.com/server-client-example-c-sockets-linux/
+gcc 1.c -o 1 -O1 -g -Wall -lneat
+
+ssh yu@gatekeeper.nntb.no
+
+sudo tcpdump -n -i eth0 host 10.1.7.12 -c 1000 -w netperf.dmp
+netperfmeter 10.1.7.12:9000 -tcp const0:const1400:const0:const0:cmt=mptcp
+netperfmeter 10.9.7.12:9000 -tcp const0:const1400:const0:const0:cmt=mptcp
+
+tcptrace -rln netperf.dmp
+
+ssh handover@meilan.hu.nornet
+ssh handover@dingo.simula.nornet
+主动方
+ssh handover@wallaby.uib.nornet    10.1.6.12	10.8.6.12
+被动方
+ssh handover@wombat.uia.nornet	   10.1.7.12	10.9.7.12
+ssh handover@koala.ntnu.nornet
+ssh handover@redback.hin.nornet
+
+eth0
+2001:250:3801:6e:ab5a:2adc:707c:44a2/64
+eth1
+2001:250:3801:6e:c481:323b:4e0:86b1/64
