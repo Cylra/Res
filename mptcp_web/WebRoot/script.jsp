@@ -252,10 +252,10 @@ jQuery(document).ready(function($) {
 								<a href="#3" role="tab" id="3-tab" data-toggle="tab"
 									aria-controls="3">拥塞控制算法脚本配置</a>
 							</li>
-							<li role="presentation">
+							<!-- <li role="presentation">
 								<a href="#robus" role="tab" id="robus-tab" data-toggle="tab"
 									aria-controls="robus">鲁棒性脚本配置</a>
-							</li>
+							</li> -->
 
 						</ul>
 						<div id="myTabContent" class="tab-content">

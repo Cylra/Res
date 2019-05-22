@@ -28,7 +28,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			});
 </script>
 
-
+<!--
+	20190522 新增视频直播DEMO展示,调整导航条显示
+-->
+<style>
+li[role="presentation"]
+{
+	width: 18%;
+	text-align: center;
+}
+li[role="presentation"]>a
+{
+	padding: 10px 20px 10px 20px;
+}
+</style>
 </head>
 <body style="background-image:url(images/12.jpg);background-repeat:no-repeat;background-size:100%; ">
 <!--start-home-->
@@ -88,7 +101,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<li role="presentation"><a href="#tree" role="tab" id="tree-tab" data-toggle="tab" aria-controls="tree">拥塞算法研究</a></li>
 							<li role="presentation"><a href="#safari" role="tab" id="safari-tab" data-toggle="tab" aria-controls="safari">路径管理研究</a></li>
 							<li role="presentation"><a href="#chen" role="tab" id="chen-tab" data-toggle="tab" aria-controls="chen">鲁棒性研究</a></li>
-							<li role="presentation"><a href="#tours" role="tab" id="tours-tab" data-toggle="tab" aria-controls="tours">DEMO展示</a></li>
+							<li role="presentation"><a href="#tours" role="tab" id="tours-tab" data-toggle="tab" aria-controls="tours">测试床DEMO</a></li>
+							<br/><br/><br/><br/>
+							<li role="presentation"><a href="#video" role="tab" id="video-tab" data-toggle="tab" aria-controls="tours">视频直播DEMO</a></li>
 						</ul>
 						<div id="myTabContent" class="tab-content">
 							<div role="tabpanel" class="tab-pane fade in active" id="expeditions" aria-labelledby="expeditions-tab">
@@ -97,7 +112,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								</div>
 								<div class="col-md-7 col-sm-7 tab-info">
 									<p style="color:#000;">缓冲区研究:
-        在图中，我们可以看出，缓冲区大小对于传输的影响。随着缓冲区的大小的增加，吞吐量随着增加，基本呈线性增加。设置一个合适的缓冲区的值，可以减少资源的消耗。</p>
+										在图中，我们可以看出，缓冲区大小对于MPTCP多路径传输的影响。随着缓冲区的大小的增加，吞吐量随着增加，基本呈线性增加。
+										设置一个合适的缓冲区的值，可以减少资源的消耗，有效提高带宽的使用率。</p>
 									<ul style="font-size: 14px; line-height: 2em;" >
 										<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(1)<a class="media" href="pdf/run-ude-hu"><font color="#000000">运行脚本run-ude-hu</font></a></li>
 										<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(2)<a class="media" href="pdf/s-plot.R"><font color="#000000">可视化脚本s-plot.R</font></a></li>
@@ -112,8 +128,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<img src="images/yongse.png" alt="Medicinal">
 								</div>
 								<div class="col-md-7 col-sm-7 tab-info">
-									<p style="color:#000;">拥塞算法研究：
-图中选取了测试床上的可用的拥塞算法，在IPv6的环境下进行测试。不同的拥塞算法在MPTCP协议下传输的不同表现。但是可以看到，在IPv6的环境下，路径的容错性更高，很多针对特定的路径的算法没有体现出优势，事实上，随着IPv6的推广，新一代的协议结构会使拥塞算法的研究省去很多麻烦。</p>
+									<p style="color:#000;">拥塞控制算法研究：
+										图中选取了测试床上的可用的拥塞算法，在IPv6的环境下进行测试。不同的拥塞算法在MPTCP协议下传输的不同表现。
+										但是可以看到，在IPv6的环境下，路径的容错性更高，很多针对特定的路径的算法没有体现出优势，
+										事实上，随着IPv6的推广，新一代的协议结构会使拥塞算法的研究省去很多麻烦。</p>
 									<ul style="font-size: 14px; line-height: 2em;" >
 										<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(1)<a class="media" href="pdf/run-hu-korea"><font color="#000000">运行脚本run-hu-korea</font></a></li>
 										<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(2)<a class="media" href="pdf/plot-HU-KOREA.R"><font color="#000000">可视化脚本plot-HU-KOREA.R</font></a></li>
@@ -129,8 +147,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<img src="images/pathMage.png" alt="Medicinal">
 								</div>
 								<div class="col-md-7 col-sm-7 tab-info">
-									<p style="color:#000;">路径管理：
-从 MPTCP 多路径传输来讲，单纯的使用IPv4或IPv6技术进行数据传输，对总的网络传输吞吐量并没有太大影响；但对于TCP单路径传输来说，仅使用IPv6技术，明显能提高路径的吞吐量，改善路径的性能。</p>
+									<p style="color:#000;">路径管理算法研究：
+										从 MPTCP 多路径传输来讲，单纯的使用IPv4或IPv6技术进行数据传输，对总的网络传输吞吐量并没有太大影响；
+										但对于TCP单路径传输来说，仅使用IPv6技术，明显能提高路径的吞吐量，改善路径的性能。</p>
 									<ul style="font-size: 14px; line-height: 2em">
 										<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(1)<a class="media" href="pdf/run-pathmgr"><font color="#000000">运行脚本run-pathmgr</font></a></li>
 										<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(2)<a class="media" href="pdf/plot-pathmgr-barplots.R"><font color="#000000">可视化脚本plot-pathmgr-barplots.R</font></a></li>
@@ -145,7 +164,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								</div>
 								<div class="col-md-7 col-sm-7 tab-info">
 									<p style="color:#000;">鲁棒性研究：
-鲁棒性及健壮性，在多路径网络环境中表现为多路径中一条或多条网络数据传输路径断开后，不影响数据的正确传输。图示表现多路径鲁棒性测试的一种方法，即利用防火墙阻断其中一条正在工作的传输路径，一段时间后复通阻断路径，记录整个过程数据收发情况，然后对记录结果进行可视化分析。总结说明多路径的鲁棒性。</p>
+										鲁棒性及健壮性，在多路径网络环境中表现为多路径中一条或多条网络数据传输路径断开后，不影响其余路径继续进行数据的正确传输。
+										图示表现多路径鲁棒性测试的一种方法，即利用防火墙阻断其中一条正在工作的传输路径，一段时间后复通阻断路径，
+										记录整个过程中数据的收发情况，然后对记录结果进行可视化分析，以总结说明多路径的鲁棒性。</p>
 									<ul style="font-size: 14px; line-height: 2em">
 										<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(1)<a class="media" href="pdf/Experiment-Firewall-Setup"><font color="#000000">防火墙配置脚本Experiment-Firewall-Setup</font></a></li>
 										<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(2)<a class="media" href="pdf/Run-FirewallExperiment"><font color="#000000">运行脚本Run-FirewallExperiment</font></a></li>
@@ -158,7 +179,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<div role="tabpanel" class="tab-pane fade" id="tours" aria-labelledby="tours-tab">
 									<%@include file="demo.jsp"%>
 							</div>
-							
+							<!--
+								20190522 新增视频直播DEMO展示模块
+							-->
+							<div role="tabpanel" class="tab-pane fade" id="video" aria-labelledby="video-tab">
+								<div class="col-md-5 col-sm-5 tab-image" style="margin-top: 1.5em;">
+									<img style="height: 60%;" src="images/video_Struct.png" alt="Medicinal">
+									<br/><br/><br/><br/>
+									<img src="images/video_Scenario.png" alt="Medicinal">
+								</div>
+								<div class="col-md-7 col-sm-7 tab-info">
+									<p style="color:#000;">视频直播平台Demo：
+										利用IPv6下的组播增强功能和能保证服务质量等优势，与MPTCP技术相结合来证明：基于IPv6与MPTCP的网络直播系统,
+										能很好地体现二者技术结合的良好相容性以及对上层应用良好的支持性，从而针对现有视频直播平台的“不流畅”、”断”、“卡”等问题提出解决方法。
+										通过IPv6广阔的地址空间，MPTCP关于冗余多路径的并发传输技术与切换技术，达到负载均衡，提升视频直播平台的稳健性。
+									</p>
+									<ul style="font-size: 14px; line-height: 2em"></ul>
+										<br/><br/>
+										<img style="max-width: 100%;" src="images/video_Sendrate.png" alt="Medicinal">
+									</ul>
+								</div>
+								<div class="clearfix"></div>
+							</div>
+
 						</div>
 					</div>
 				</div>

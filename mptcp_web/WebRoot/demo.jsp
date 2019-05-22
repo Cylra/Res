@@ -152,7 +152,9 @@
 					<table cellpadding="0" cellspacing="0" width="90%">
 						<tr height='30%'>
 							<td>
-								<p style="line-height: 2em;font-size: 16px;color:#000;line-height:30px">测试床构建体验Demo：目前大多数协议的研究是基于OPENET或者NS的仿真平台，缺点是不能获得真实数据，本Demo构建的测试床是一个真实的测试环境，能够获得真实、准确的数据结果。</p>
+								<p style="line-height: 2em;font-size: 16px;color:#000;line-height:30px">测试床构建体验Demo：目前大多数协议的研究是基于OPENET或者NS的仿真平台，
+									缺点是由于真实网络的复杂性，当仿真节点数较多，即模拟大规模网络中网络的异构性和动态性时在编写上存在一定的困难，不能获得真实的数据，
+									同时仿真软件的兼容性问题也比较突出，本Demo构建的测试床是一个真实的测试环境，能够获得真实、准确的数据结果。</p>
 							    <br/><br/><br/><br/><br/><br/><br/>
 							    
 							</td>
